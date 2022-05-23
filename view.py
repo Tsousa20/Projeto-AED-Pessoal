@@ -1,6 +1,7 @@
 import controller
 import model
 
+#lista para a sala
 fila_k = ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13" "k14"]
 fila_j = ["j1", "j2", "j3", "j4", "j5", "j6", "j7", "j8", "j9", "j10", "j11", "j12", "j13", "j14"]
 fila_i = ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "i13", "i14"]
@@ -46,11 +47,18 @@ bilheteira_novembro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 bilheteira_dezembro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
-
-
-
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
-cartaz_espetaculos = ["Brodway", "Circo", "Musical", "Opera"]
+
+
+cartaz_eventos_user = ["Brodway dia: 10/01/2022 hora: 20.30H", "Circo dia: 12/02/2022 hora: 16.00H", "Musical dia: 6/03/2022 hora: 19.15H", "Opera dia: 21/04/2022 hora: 21.45H"]
+cartaz_eventos = [
+    {"evento_1": "Brodway", "dia": 10, "mes": 1, "ano": 2022, "hora": 20.30},
+    {"evento_2": "Circo", "dia": 12, "mes": 2, "ano": 2022, "hora": 16.00},
+    {"evento_3": "Musical", "dia": 6, "mes": 3, "ano": 2022, "hora": 19.15},
+    {"evento_4": "Opera", "dia": 21, "mes": 4, "ano": 2022, "hora": 21.45},
+    ]
+
+
 bilheteira_opçoes = ["Dia", "Mês", "Ano"]
 
 
@@ -61,13 +69,8 @@ def main():
         except EOFError:
             return
 
-        #Fazer Reserva
-        if controlos[0] == "FR":
-            ##print("Indique a data da reserva")
-            ##input()
-            print(model.palco())
-
-        elif controlos[0] == "START":
+      
+        if controlos[0] == "START":
             print() #apenas para aparecer separado, é so estetica
             print("Bem vindo à sala de espetáculos!\nEscolha uma opção.")
             print() #apenas para aparecer separado, é so estetica
@@ -77,21 +80,20 @@ def main():
             print() #apenas para aparecer separado, é so estetica
             print("Por favor, escolha um evento!")
             print() #apenas para aparecer separado, é so estetica
-            print('\n'.join(map(str, cartaz_espetaculos)))
+            print('\n'.join(map(str, cartaz_eventos_user)))
 
             controlos = input().split(" ")
 
             if controlos[0] == "Brodway":
-                Brodway()
-                if controlos[0] not in menu_sala_espetaculos:
-                    print("Opção inexistente.")
+                print() #apenas para aparecer separado, é so estetica
+                print(model.palco_default())
+                print(model.tabela_precos())
+                
+                print("Por favor, escolha o seu lugar.")
+                
+                
 
         elif controlos[0] == "Bilheteira":
             print("Escolha uma opção para ver o valor da bilheteira correspondente.")
 
 
-
-def Brodway():
-    print("Por favor, escolha o seu lugar.")
-    print() #apenas para aparecer separado, é so estetica
-    print(model.palco())
