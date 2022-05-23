@@ -16,8 +16,8 @@ a = ["a1", "a2", None, None, None, "a6", "a7", "a8", "a9", None, None, None, "a1
 
 
 
-showroom_options = ["Events", "Tickets", "Reservations"]
-showroom_events = ["Brodway", "Circus", "Musical", "Opera"]
+showroom_options = ["Eventos", "Bilhetes", "Reservas"]
+showroom_events = ["Brodway", "Circo", "Musical", "Opera"]
 def main():
     while True:
         try:
@@ -33,13 +33,13 @@ def main():
 
         elif controlos[0] == "START":
             print() #apenas para aparecer separado, é so estetica
-            print("Welcome to THE SHOWROOM\nPlease, choose an option.")
+            print("Bem vindo à sala de espetaculos!\nEscolha uma opção!")
             print() #apenas para aparecer separado, é so estetica
             print('\n'.join(map(str, showroom_options)))
 
         elif controlos[0] == "Events":
             print() #apenas para aparecer separado, é so estetica
-            print("Please, choose you event!")
+            print("Escolha o evento!")
             print() #apenas para aparecer separado, é so estetica
             print('\n'.join(map(str, showroom_events)))
 
@@ -48,10 +48,10 @@ def main():
             if controlos[0] == "Brodway":
                 Brodway()
                 if controlos[0] not in showroom_options:
-                    print("That option does not exist.")
+                    print("Opção inexistente.")
 
 
 def Brodway():
-    print("Please, choose you seat!")
+    print("Selecione o seu lugar!")
     print() #apenas para aparecer separado, é so estetica
     print(model.palco())
