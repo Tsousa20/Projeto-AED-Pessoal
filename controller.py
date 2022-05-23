@@ -3,14 +3,11 @@ def criar_lista():
     return lista
 
 
-
-
-
 def verificar_cliente(lista_clientes_registados, username):
-    for x in  lista_clientes_registados:
+    for x in lista_clientes_registados:
         if x[1] == username:
-                return True
-        return False
+            return True
+    return False
 
 
 def registar_clientes(lista_clientes_registados, nome, username, password):
@@ -21,9 +18,9 @@ def registar_clientes(lista_clientes_registados, nome, username, password):
 def verificacao_username(lista_clientes_registados, lista_usernames, username):
     x = username
     for x in lista_clientes_registados:
-            if x[1] in lista_clientes_registados:
-                lista_usernames.append(x)
-                return username
+        if x[1] in lista_clientes_registados:
+            lista_usernames.append(x)
+            return username
 
 
 def login_cliente(lista_username, username, password):

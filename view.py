@@ -48,16 +48,17 @@ bilheteira_dezembro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 
 
-
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
 cartaz_espetaculos = ["Brodway", "Circo", "Musical", "Opera"]
 bilheteira_opçoes = ["Dia", "Mês", "Ano"]
 
+lista_clientes_registados = controller.criar_lista
+lista_usernames = controller.criar_lista
+
 
 def main():
 
-    lista_clientes_registados = controller.criar_lista
-    lista_usernames = controller.criar_lista
+    
     while True:
         try:
             controlos = input().split(" ")
@@ -71,11 +72,7 @@ def main():
                 controller.registar_clientes(lista_clientes_registados, controlos[1], controlos[2], controlos[3])
                 print("Registo efetuado com sucesso")
 
-        #Fazer Reserva
-        if controlos[0] == "FR":
-            ##print("Indique a data da reserva")
-            ##input()
-            print(model.palco())
+        
 
         elif controlos[0] == "START":
             print() #apenas para aparecer separado, é so estetica
@@ -92,16 +89,14 @@ def main():
             controlos = input().split(" ")
 
             if controlos[0] == "Brodway":
-                Brodway()
-                if controlos[0] not in menu_sala_espetaculos:
-                    print("Opção inexistente.")
+                print() #apenas para aparecer separado, é so estetica
+                print(model.palco_default())
+                print(model.tabela_precos())
+                print("Por favor, escolha o seu lugar.")
+                
+                
 
         elif controlos[0] == "Bilheteira":
             print("Escolha uma opção para ver o valor da bilheteira correspondente.")
 
 
-
-def Brodway():
-    print("Por favor, escolha o seu lugar.")
-    print() #apenas para aparecer separado, é so estetica
-    print(model.palco())
