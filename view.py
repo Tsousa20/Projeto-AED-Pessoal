@@ -53,6 +53,7 @@ menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
 cartaz_espetaculos = ["Brodway", "Circo", "Musical", "Opera"]
 bilheteira_opçoes = ["Dia", "Mês", "Ano"]
 
+
 def main():
     while True:
         try:
@@ -84,12 +85,9 @@ def main():
                 Brodway()
                 if controlos[0] not in menu_sala_espetaculos:
                     print("Opção inexistente.")
+
         elif controlos[0] == "Bilheteira":
             print("Escolha uma opção para ver o valor da bilheteira correspondente.")
-
-    
-
-    
 
 
 
