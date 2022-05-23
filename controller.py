@@ -1,1 +1,1 @@
-
+def choose_seat()
