@@ -45,12 +45,23 @@ bilheteira_outubro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 bilheteira_novembro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 bilheteira_dezembro_2023 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+bilheteira_opçoes = ["Dia", "Mês", "Ano"]
 
 
 
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
-cartaz_espetaculos = ["Brodway", "Circo", "Musical", "Opera"]
-bilheteira_opçoes = ["Dia", "Mês", "Ano"]
+cartaz_espetaculos = [
+    {"evento_1": "Brodway", "dia": 20, "mês": 1, "ano": 2022},
+    {"evento_2": "Circo", "dia": 12, "mês": 2, "ano": 2022},
+    {"evento_3": "Musical", "dia": 6, "mês": 3, "ano": 2022},
+    {"evento_4": "Opera", "dia": 22, "mês": 4, "ano": 2022}
+    ]
+cartaz_espetaculos_user = [
+    "Brodway 20/1/2022 hora: 20.30H", 
+    "Circo 12/2/2022 hora: 16.00H", 
+    "Musical 6/3/2022 hora: 21.15H", 
+    "Opera 22/4/2022 hora:21.00H"
+    ]
 
 lista_clientes_registados = controller.criar_lista
 lista_usernames = controller.criar_lista
@@ -84,18 +95,19 @@ def main():
             print() #apenas para aparecer separado, é so estetica
             print("Por favor, escolha um evento!")
             print() #apenas para aparecer separado, é so estetica
-            print('\n'.join(map(str, cartaz_espetaculos)))
+            print('\n'.join(map(str, cartaz_espetaculos_user)))
 
             controlos = input().split(" ")
 
             if controlos[0] == "Brodway":
-                print() #apenas para aparecer separado, é so estetica
-                print(model.palco_default())
-                print(model.tabela_precos())
-                print("Por favor, escolha o seu lugar.")
-                
-                
+                # print() #apenas para aparecer separado, é so estetica
+                # print(model.palco_default())
+                # print(model.tabela_precos())
+                print("Escolha o dia, que pretende assitir ao evento.")
 
+                controlos[0] == ""
+                
+            
         elif controlos[0] == "Bilheteira":
             print("Escolha uma opção para ver o valor da bilheteira correspondente.")
 
