@@ -69,7 +69,7 @@ def main():
                 print("Já existe alguem registado com o username escolhido.")
             else:
                 controller.registar_clientes(lista_clientes_registados, controlos[1], controlos[2], controlos[3])
-                print("Registo efetuado com sucesso.")
+                print("Registo efetuado com sucesso")
 
         #Fazer Reserva
         if controlos[0] == "FR":
