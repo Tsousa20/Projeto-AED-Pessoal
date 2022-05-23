@@ -66,6 +66,8 @@ cartaz_espetaculos_user = [
 lista_clientes_registados = controller.criar_lista
 lista_usernames = controller.criar_lista
 
+reserva_opcoes = ["Consultar reserva", "Eliminar reserva", "Alterar reserva"]
+
 
 def main():
 
@@ -96,16 +98,28 @@ def main():
             print("Por favor, escolha um evento!")
             print() #apenas para aparecer separado, é so estetica
             print('\n'.join(map(str, cartaz_espetaculos_user)))
-
             controlos = input().split(" ")
 
+            
             if controlos[0] == "Brodway":
                 # print() #apenas para aparecer separado, é so estetica
                 # print(model.palco_default())
                 # print(model.tabela_precos())
                 print("Escolha o dia, que pretende assitir ao evento.")
+                controlos = input().split(" ")
 
-                controlos[0] == ""
+                if controlos[0] not in cartaz_espetaculos:
+                    print("Dia incorreto.")
+                
+
+
+        elif controlos[0] == "Reservas":
+            print() #apenas para aparecer separado, é so estetica
+            print("Selecione uma opção.")
+            print() #apenas para aparecer separado, é so estetica
+            print('\n'.join(map(str, reserva_opcoes)))
+
+
                 
             
         elif controlos[0] == "Bilheteira":
