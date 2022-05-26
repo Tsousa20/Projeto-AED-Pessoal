@@ -57,11 +57,16 @@ cartaz_espetaculos = [
     {"evento_4": "Opera", "dia": 22, "mês": 4, "ano": 2022}
     ]
 cartaz_espetaculos_user = [
-    "Brodway 20/1/2022 hora: 20.30H", 
-    "Circo 12/2/2022 hora: 16.00H", 
-    "Musical 6/3/2022 hora: 21.15H", 
-    "Opera 22/4/2022 hora:21.00H"
+    "Brodway", 
+    "Circo", 
+    "Musical", 
+    "Opera"
     ]
+
+dias_brodway = ["1", "- 20/1/2022\n"]
+dias_circo = ["1", "- 12/2/2022n\n"]
+dias_musical = ["1", "- 6/3/2022\n", "2", "- 22/4/2022\n"]
+dias_opera = []
 
 lista_clientes_registados = controller.criar_lista
 lista_usernames = controller.criar_lista
@@ -98,19 +103,80 @@ def main():
             print("Por favor, escolha um evento!")
             print() #apenas para aparecer separado, é so estetica
             print('\n'.join(map(str, cartaz_espetaculos_user)))
-            controlos = input().split(" ")
-
+            controlos = input()
+            dia = "NÃO EXISTE"
             
-            if controlos[0] == "Brodway":
-                # print() #apenas para aparecer separado, é so estetica
-                # print(model.palco_default())
-                # print(model.tabela_precos())
-                print("Escolha o dia, que pretende assitir ao evento.")
-                controlos = input().split(" ")
+            #EVENTOS BRODWAY
+            if controlos == "Brodway":
+                print(f"Escolha o dia, que pretende assitir ao evento.\n{dias_brodway}" )
+                controlos = input()
 
-                if controlos[0] not in cartaz_espetaculos:
-                    print("Dia incorreto.")
-                
+                if controlos == "1": #and registado
+                    dia = dias_brodway[1]
+
+                #elif registado and controlos != 1:
+                else:
+                    print("Instrução não compreendida!")
+            
+                if dia != 0:
+                    print("Que tipo de bilhete pretende?\n")
+                    print(model.tabela_precos())
+                    controlos = input()
+            
+                if controlos == "Normal":
+                    print(model.palco_default())
+                    print("Selecione o seu lugar")
+                    controlos = input()
+
+            #EVENTOS CIRCO
+            if controlos == "Circo":
+                print(f"Escolha o dia, que pretende assitir ao evento.\n{dias_circo}" )
+                controlos = input()
+
+                if controlos == "1": #and registado
+                    dia = dias_circo[1]
+
+                #elif registado and controlos != 1
+                else:
+                    print("Instrução não compreendida!")
+            
+                if dia != 0:
+                    print("Que tipo de bilhete pretende?\n")
+                    print(model.tabela_precos())
+                    controlos = input()
+            
+                if controlos == "Normal":
+                    print(model.palco_default())
+                    print("Selecione o seu lugar")
+                    controlos = input()            
+
+            #EVENTOS MUSICAL
+            if controlos == "Musical":
+                print(f"Escolha o dia, que pretende assitir ao evento.\n{dias_musical}" )
+                controlos = input()
+
+                if controlos == "1": #and registado
+                    dia = dias_musical[1]
+                if controlos == "2": #and registado
+                    dia = dias_musical[3]
+
+                #elif registado and controlos != 1 and controlos != 2::
+                else:
+                    print("Instrução não compreendida!")
+            
+                if dia != 0:
+                    print("Que tipo de bilhete pretende?\n")
+                    print(model.tabela_precos())
+                    controlos = input()
+            
+                if controlos == "Normal":
+                    print(model.palco_default())
+                    print("Selecione o seu lugar")
+                    controlos = input()
+
+            #EVENTOS OPERA
+            if controlos == "Opera":
+                print("De momento não existe registo de um espetaculo de Opera.")
 
 
         elif controlos[0] == "Reservas":
@@ -124,5 +190,3 @@ def main():
             
         elif controlos[0] == "Bilheteira":
             print("Escolha uma opção para ver o valor da bilheteira correspondente.")
-
-
