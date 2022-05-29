@@ -25,7 +25,7 @@ def verificacao_username(lista_clientes_registados, lista_usernames, username):
 
 def login_cliente(lista_username,username, password):
     for x in lista_username:
-        if username in lista_username:
+        if x in lista_username:
             login =[username, password]
             return login
 
