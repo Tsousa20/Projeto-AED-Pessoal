@@ -1,3 +1,6 @@
+import view
+import model
+
 def criar_lista():
     lista = []
     return lista
@@ -29,24 +32,35 @@ def login_cliente(lista_username,username, password):
             login =[username, password]
             return login
 
-#Tiago Sousa
-def verificar_lugar(sala, lugar):
-    if sala.search_item(lugar) == True:
-        return True
+#funçao para criar listas para o diferentes espetaculos com as diferentes salas
+def criar_reservas_normal(x, y):
+    
+    if len(view.lista_lugares_reservados) == 0:
+        print(f"teste")
+        temp = view.sala
+        temp.insert(0, x)
+        temp.remove(y)
+        view.lista_lugares_reservados.append(temp)
+        return "Reservado"
+        
     else:
-        return False
+        for i in range(len(view.lista_lugares_reservados)):
+            if view.lista_lugares_reservados[i][0] == x:
+                if y in view.lista_lugares_reservados[i]:
+                    view.lista_lugares_reservados[i].remove(y)
 
-#Tiago Sousa
-def eliminar_lugar(sala, lugar):
-    if sala.search_item(lugar) == True:
-        sala.delete_element_by_value(lugar)
-        return True
-    else:
-        return False
+                    return "Reservado"
+                else:
+                    return "Não reservado"
+            else:
+                temp = view.sala
+                temp.insert(0, x)
+                temp.remove(y)
+                view.lista_lugares_reservados.append(temp)
+                return "Reservado"
+                
+
+                   
 
     
-
-
-
-
 
