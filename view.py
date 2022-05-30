@@ -2,10 +2,6 @@ import controller
 import model
 from models.linkedlist import LinkedList
 
-sala = LinkedList()
-
-
-
 
 sala = ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13" "k14", "j1", "j2", "j3", "j4", "j5", "j6", "j7", "j8", "j9", "j10", "j11", "j12", "j13", "j14"
 "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "i13", "i14",
@@ -17,6 +13,8 @@ sala = ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12
 "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14",
 "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11","b12", "b13", "b14",
 "a1", "a2", "a6", "a7", "a8", "a9", "a13", "a14"]
+
+lista_lugares_reservados = []
 
 
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
@@ -42,7 +40,7 @@ dias_opera = []
 lista_clientes_registados = controller.criar_lista
 lista_usernames = controller.criar_lista
 
-#Tiago Sousa: listaara usar no menu resrvas
+#Tiago Sousa: lista para usar no menu reservas
 reserva_opcoes = ["Consultar reserva", "Eliminar reserva", "Alterar reserva"]
 
 
@@ -94,18 +92,18 @@ def main():
                     print("Que tipo de bilhete pretende?\n")
                     print(model.tabela_precos())
                     controlos = input()
-            
+
+                
                 if controlos == "Normal":
                     print(model.palco_default())
                     print("Selecione o seu lugar")
                     controlos = input()
-
-                    lugar = controlos
-                    if controller.verificar_lugar(sala, lugar) == True:
-                        controller.eliminar_lugar(sala, lugar)
+                    if controlos in sala:
+                        lugar = controlos
+                        lista_lugares_reservados.append(lugar)
                         print(f"O lugar {lugar} está reservado para si.")
                     else:
-                        print("O lugar {lugar} encontar-se reservado por outra pessoa.")
+                        print(f"O lugar {lugar} encontar-se reservado por outra pessoa.")
 
             #EVENTOS CIRCO
             if controlos == "Circo":
