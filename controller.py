@@ -29,7 +29,22 @@ def login_cliente(lista_username,username, password):
             login =[username, password]
             return login
 
+#Tiago Sousa
+def verificar_lugar(sala, lugar):
+    if sala.search_item(lugar) == True:
+        return True
+    else:
+        return False
 
+#Tiago Sousa
+def eliminar_lugar(sala, lugar):
+    if sala.search_item(lugar) == True:
+        sala.delete_element_by_value(lugar)
+        return True
+    else:
+        return False
+
+    
 
 
 
