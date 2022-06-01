@@ -14,10 +14,31 @@ sala = ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12
 "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11","b12", "b13", "b14",
 "a1", "a2", "a13", "a14", ["a6", "a7", "a8", "a9", "f6", "f7", "f8", "f9"]]
 
-lista_lugares_reservados = []
+#Tiago Sousa: listas para bilheteiras
+bilheteira_janeiro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #31
+bilheteira_fevereiro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_março_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_abril_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_maio_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_junho_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_julho_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_agosto_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_setembro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_outubro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_novembro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+bilheteira_dezembro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+bilheteira_anual_2022 = [bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_março_2022, bilheteira_abril_2022,
+bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022, bilheteira_setembro_2022,
+bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022]
+
+bilheteira_menu_opcoes = ["Dia", "Mes", "Ano"]
+bilheteira_menu_meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", 
+"Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
 #Tiago e Rodrigo:
 lista_todas_reservas = []
+lista_lugares_reservados = []
 
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
 
@@ -25,19 +46,26 @@ cartaz_espetaculos = [
     {"evento_1": "Brodway", "dia": 20, "mês": 1, "ano": 2022},
     {"evento_2": "Circo", "dia": 12, "mês": 2, "ano": 2022},
     {"evento_3": "Musical", "dia": 6, "mês": 3, "ano": 2022},
-    {"evento_4": "Opera", "dia": 22, "mês": 4, "ano": 2022}
+    {"evento_4": "Opera", "dia": 22, "mês": 4, "ano": 2022},
+    {"evento_5": "Teatro", "dia": 14, "mês": 11, "ano": 2022}
     ]
 cartaz_espetaculos_user = [
     "Brodway", 
     "Circo", 
     "Musical", 
-    "Opera"
+    "Opera",
+    "Teatro"
     ]
 
-dias_brodway = ["1", "Brodway_20/1/2022"]
-dias_circo = ["1", "- 12/2/2022n\n"]
-dias_musical = ["1", "- 6/3/2022\n", "2", "- 22/4/2022\n"]
-dias_opera = []
+dias_brodway = ["3/1/2022", "23/1/2022\n", "3/2/2022", "23/2/2022\n", "3/3/2022", "23/3/2022\n", "3/4/2022", "23/4/2022\n",
+"3/5/2022", "23/5/2022\n", "3/6/2022", "23/6/2022\n", "3/7/2022", "23/7/2022\n", "3/9/2022", "23/9/2022\n", "3/10/2022",
+"23/10/2022\n", "3/11/2022", "23/11/2022\n", "3/12/2022", "23/12/2022\n"]
+dias_musical = ["15/1/2022\n", "6/2/2022\n", "6/3/2022\n", "22/4/2022\n", "17/6/2022\n", "20/7/2022\n", "5/9/2022\n", 
+"29/10/2022\n", "4/11/2022\n", "21/12/2022\n"]
+dias_opera = ["4/1/2022\n", "22/3/2022\n", "11/6/2022\n", "5/9/2022\n", "9/12/2022\n"]
+dias_circo = ["4/1/2022\n", "6/6/2022\n", "12/2/2022\n"]
+dias_teatro = ["22/9/2022"]
+
 
 lista_clientes_registados = controller.criar_lista
 lista_usernames = controller.criar_lista
@@ -80,12 +108,26 @@ def main():
             
             #EVENTOS BRODWAY
             if controlos == "Brodway":
-                print(f"Escolha o dia, que pretende assitir ao evento.\n{dias_brodway}" )
+                evento = controlos
+                print() #apenas para aparecer separado, é so estetica
+                print(f"Escolha o dia, que pretende assitir ao evento {evento}.\n" )
+                print('\n'.join(map(str, dias_brodway)))
+                
                 controlos = input()
 
-                if controlos == "1": 
+                if controlos in dias_brodway:
                     dia = dias_brodway[1]
 
+                    if len(controlos) == 8:
+                        variavel_dia = int(controller.guardar_dia_1digito(controlos))
+                        
+                    elif len(controlos) == 9:
+                        variavel_dia = int(controller.guardar_dia_2digitos(controlos))
+                        
+                    elif len(controlos) == 10:
+                        variavel_dia = int(controller.guardar_dia_2digitos(controlos))
+                        
+                
                 else:
                     print("Instrução não compreendida!")
             
@@ -112,8 +154,8 @@ def main():
                         lugar = input()
                         variavel_teste = controller.criar_reservas_normal(dia, lugar)
                         
-            
-                
+                    valor_bilhete = 4
+                    bilheteira_janeiro_2022.insert(variavel_dia, valor_bilhete)
                     print() #apenas para aparecer separado, é so estetica
                     print(f"O lugar {lugar} está reservado para si.\n")
                     
@@ -176,6 +218,89 @@ def main():
             #EVENTOS OPERA
             if controlos == "Opera":
                 print("De momento não existe registo de um espetaculo de Opera.")
+
+        #Tiago Sousa
+        elif controlos[0] == "Bilheteira":
+            print() #apenas para aparecer separado, é so estetica
+            print("Selecione uma opção.\n")
+            print('\n'.join(map(str, bilheteira_menu_opcoes)))
+            controlos = input()
+
+            if controlos == "Dia":
+                print("Ainda não está a funcionar")
+            elif controlos == "Ano":
+                print() #apenas para aparecer separado, é so estetica
+                valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
+                print(f"Lucro bilheteira no Ano de 2022: {valor_ano}")
+
+            elif controlos == "Mes":
+                print() #apenas para aparecer separado, é so estetica
+                print("Selecione o mês.\n")
+                print('\n'.join(map(str, bilheteira_menu_meses)))
+                controlos = input()
+
+                if controlos == "Janeiro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_janeiro_2022)
+                    print(f"Lucro bilheteira em Janeiro: {valor_mes}")
+
+                elif controlos == "Fevereiro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_fevereiro_2022)
+                    print(f"Lucro bilheteira em Fevereiro: {valor_mes}")
+
+                elif controlos == "Março":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_março_2022)
+                    print(f"Lucro bilheteira em Março: {valor_mes}")
+
+                elif controlos == "Abril":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes= controller.contar_bilheteira_mes(bilheteira_abril_2022)
+                    print(f"Lucro bilheteira em Abril: {valor_mes}")
+
+                elif controlos == "Maio":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_maio_2022)
+                    print(f"Lucro bilheteira em Maio: {valor_mes}")
+
+                elif controlos == "Junho":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_junho_2022)
+                    print(f"Lucro bilheteira em Junho: {valor_mes}")
+
+                elif controlos == "Julho":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_julho_2022)
+                    print(f"Lucro bilheteira em Julho: {valor_mes}")
+
+                elif controlos == "Agosto":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_agosto_2022)
+                    print(f"Lucro bilheteira em Agosto: {valor_mes}")
+
+                elif controlos == "Setembro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_setembro_2022)
+                    print(f"Lucro bilheteira em Setembro: {valor_mes}")
+
+                elif controlos == "Outubro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_outubro_2022)
+                    print(f"Lucro bilheteira em Outubro: {valor_mes}")
+
+                elif controlos == "Novembro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_novembro_2022)
+                    print(f"Lucro bilheteira em Novembro: {valor_mes}")
+
+                elif controlos == "Dezembro":
+                    print() #apenas para aparecer separado, é so estetica
+                    valor_mes = controller.contar_bilheteira_mes(bilheteira_dezembro_2022)
+                    print(f"Lucro bilheteira em Dezembro: {valor_mes}")
+
+
+
 
 
         elif controlos[0] == "Reservas":

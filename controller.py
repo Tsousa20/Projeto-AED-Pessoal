@@ -32,7 +32,7 @@ def login_cliente(lista_username,username, password):
             login =[username, password]
             return login
 
-#funçao para criar listas para o diferentes espetaculos com as diferentes salas
+#Tiago e Rodrigo: funçao para criar listas para o diferentes espetaculos com as diferentes salas
 def criar_reservas_normal(x, y):
     
     if len(view.lista_lugares_reservados) == 0:
@@ -61,6 +61,23 @@ def criar_reservas_normal(x, y):
                 
 
                    
+def contar_bilheteira_mes(x):
+    valor = 0
+    for i in x:
+        valor += i
+    return valor
 
-    
+def contar_bilheteira_anual(x):
+    for i in x:
+        valor = 0
+        for j in x:
+            valor += x[i][j]
+    return valor
 
+#Tiago Sousa: funçao para guardar a data do dia escolhido, usar essa data para adicionar
+#o valor a bilheteira 
+def guardar_dia_1digito(controlos):
+    return controlos[:1]
+
+def guardar_dia_2digitos(controlos):
+    return controlos[:2]
