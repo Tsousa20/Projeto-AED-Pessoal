@@ -68,10 +68,12 @@ def contar_bilheteira_mes(x):
     return valor
 
 def contar_bilheteira_anual(x):
+    valor = 0
     for i in x:
-        valor = 0
-        for j in x:
-            valor += x[i][j]
+        sum = 0
+        for j in i:
+            sum += j
+        valor += sum
     return valor
 
 #Tiago Sousa: funçao para guardar a data do dia escolhido, usar essa data para adicionar
