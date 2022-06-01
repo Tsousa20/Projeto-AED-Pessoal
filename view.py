@@ -2,17 +2,30 @@ import controller
 import model
 from models.linkedlist import LinkedList
 
-#sala default usado para todas as salas dos eventos, copiada.
-sala = ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13" "k14", "j1", "j2", "j3", "j4", "j5", "j6", "j7", "j8", "j9", "j10", "j11", "j12", "j13", "j14"
-"i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "i13", "i14",
-"h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "h11", "h12", "h13", "h14",
-"g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8", "g9", "g10", "g11", "g12", "g13", "g14",
-"f1", "f2", "f13", "f14",
-"e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9","e10", "e11", "e12", "e13", "e14",
-"d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "d11", "d12", "d13", "d14",
-"c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14",
-"b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11","b12", "b13", "b14",
-"a1", "a2", "a13", "a14", ["a6", "a7", "a8", "a9", "f6", "f7", "f8", "f9"]]
+# sala default usado para todas as salas dos eventos, copiada.
+sala = ["K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12", "K13", "K14",
+"J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14",
+"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14",
+"H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14",
+"G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14",
+"F1", "F2", "F13", "F14",
+"E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14 ",
+"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14",
+"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14",
+"B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14",
+"A1", "A2", "A13", "A14", ["A6", "A7", "A8", "A9", "F6", "F7", "F8", "F9"]]
+
+sala_para_print = "EVENTO_DIA", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12", "K13", "K14",
+"J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14",
+"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14",
+"H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14",
+"G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14",
+"F1", "F2", "F6", "F7", "F8", "F9", "F13", "F14",
+"E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14 ",
+"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14",
+"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14",
+"B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14",
+"A1", "A2", "A6", "A7", "A8", "A9", "A13", "A14"
 
 #Tiago Sousa: listas para bilheteiras
 bilheteira_janeiro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #31
@@ -36,9 +49,11 @@ bilheteira_menu_opcoes = ["Dia", "Mes", "Ano"]
 bilheteira_menu_meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", 
 "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
-#Tiago e Rodrigo:
-lista_todas_reservas = []
+#Lista dos eventosque têm reservas com pop() das que foram reservadas
 lista_lugares_reservados = []
+
+#Lista dos eventos que têm reservas e que vão ser printados
+lista_todos_eventos_print = []
 
 menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
 
@@ -138,7 +153,7 @@ def main():
 
                 
                 if controlos == "Normal":
-                    print(model.palco_default())
+                    controller.print_palco_evento(dia)
                     print("Selecione o seu lugar")
                     controlos = input()
                     
@@ -148,7 +163,7 @@ def main():
                     while variavel_teste == "Não reservado":
                         print(f"Este lugar {lugar} já se encontra reservado. Por favor, selecione outro lugar.\n")
                         input("Pressione ENTER para continuar\n")
-                        print(model.palco_default())
+                        controller.print_palco_evento(dia)
                         print("Selecione o seu lugar\n")
                         
                         lugar = input()
@@ -156,6 +171,7 @@ def main():
                         
                     valor_bilhete = 4
                     bilheteira_janeiro_2022.insert(variavel_dia, valor_bilhete)
+                    controller.print_palco_evento(dia)
                     print() #apenas para aparecer separado, é so estetica
                     print(f"O lugar {lugar} está reservado para si.\n")
                     
