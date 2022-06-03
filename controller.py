@@ -87,6 +87,7 @@ def print_palco_evento(evento):
         if evento == view.lista_todos_eventos_print[i][0]:
             model.palco_reserva_default(view.lista_todos_eventos_print[i])
             return None
+    
 
                    
 def contar_bilheteira_mes(x):
@@ -104,10 +105,81 @@ def contar_bilheteira_anual(x):
         valor += sum
     return valor
 
+def contar_bilheteira_dia(x, y, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_março_2022, bilheteira_abril_2022,
+bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022, bilheteira_setembro_2022,
+bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022):
+    if x == "Janeiro":
+        i = y - 1
+        valor = bilheteira_janeiro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Fevereiro":
+        i = y - 1
+        valor = bilheteira_fevereiro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Março":
+        i = y - 1
+        valor = bilheteira_março_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Abril":
+        i = y - 1
+        valor = bilheteira_abril_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Maio":
+        i = y - 1
+        valor = bilheteira_maio_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Junho":
+        i = y - 1
+        valor = bilheteira_junho_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Julho":
+        i = y - 1
+        valor = bilheteira_julho_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Agosto":
+        i = y - 1
+        valor = bilheteira_agosto_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Setembro":
+        i = y - 1
+        valor = bilheteira_setembro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Outubro":
+        i = y - 1
+        valor = bilheteira_outubro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Novembro":
+        i = y - 1
+        valor = bilheteira_novembro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+    elif x == "Dezembro":
+        i = y - 1
+        valor = bilheteira_dezembro_2022[i]
+        print(f"valor dia: {valor}")
+        return valor
+
+
+
+
+
+
 #Tiago Sousa: funçao para guardar a data do dia escolhido, usar essa data para adicionar
 #o valor a bilheteira 
 def guardar_dia_1digito(controlos):
     return controlos[:1]
 
 def guardar_dia_2digitos(controlos):
+    print(type(controlos[:2]))
     return controlos[:2]
+    

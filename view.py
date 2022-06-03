@@ -137,7 +137,12 @@ def main():
                         variavel_dia = int(controller.guardar_dia_1digito(controlos))
                         
                     elif len(controlos) == 9:
-                        variavel_dia = int(controller.guardar_dia_2digitos(controlos))
+                        variavel_teste = controller.guardar_dia_2digitos(controlos)
+                        # variavel_dia = int(controller.guardar_dia_2digitos(controlos))
+                        if "/" in variavel_teste:
+                            variavel_dia = int(controller.guardar_dia_1digito(variavel_teste))
+                        else:
+                            variavel_dia = int(controller.guardar_dia_2digitos(controlos))
                         
                     elif len(controlos) == 10:
                         variavel_dia = int(controller.guardar_dia_2digitos(controlos))
@@ -154,7 +159,7 @@ def main():
                 
                 if controlos == "Normal":
                     controller.print_palco_evento(dia)
-                    print("Selecione o seu lugar")
+                    print("Selecione o seu lugar.")
                     controlos = input()
                     
                     #Tiago Sousa
@@ -170,7 +175,7 @@ def main():
                         variavel_teste = controller.criar_reservas_normal(dia, lugar)
                         
                     valor_bilhete = 4
-                    bilheteira_janeiro_2022.insert(variavel_dia, valor_bilhete)
+                    bilheteira_janeiro_2022.insert(variavel_dia - 1, valor_bilhete)
                     controller.print_palco_evento(dia)
                     print() #apenas para aparecer separado, é so estetica
                     print(f"O lugar {lugar} está reservado para si.\n")
@@ -243,7 +248,21 @@ def main():
             controlos = input()
 
             if controlos == "Dia":
-                print("Ainda não está a funcionar")
+                print() #apenas para aparecer separado, é so estetica
+                print("Selecione o mês, a que pertence o dia.\n")
+                print('\n'.join(map(str, bilheteira_menu_meses)))
+                controlos1 = input()
+                temp_mes = controlos1
+
+                print("Selecione o dia.\n")
+                controlos2 = int(input())
+                temp_dia = controlos2
+                valor_diario = controller.contar_bilheteira_dia(temp_mes, temp_dia, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_março_2022, bilheteira_abril_2022,
+bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022, bilheteira_setembro_2022,
+bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+                print(f"Lucro bilheteira no dia {temp_dia}: {valor_diario}")
+
+
             elif controlos == "Ano":
                 print() #apenas para aparecer separado, é so estetica
                 valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
