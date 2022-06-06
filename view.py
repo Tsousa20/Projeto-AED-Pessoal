@@ -1,3 +1,4 @@
+from turtle import goto
 import controller
 import model
 from models.linkedlist import LinkedList
@@ -55,7 +56,7 @@ lista_lugares_reservados = []
 #Lista dos eventos que têm reservas e que vão ser printados
 lista_todos_eventos_print = []
 
-menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn/SignUp"]
+menu_sala_espetaculos = ["Eventos", "Bilheteira", "Reservas", "SignIn", "SignUp"]
 
 cartaz_espetaculos = [
     {"evento_1": "Brodway", "dia": 20, "mês": 1, "ano": 2022},
@@ -82,8 +83,8 @@ dias_circo = ["4/1/2022\n", "6/6/2022\n", "12/2/2022\n"]
 dias_teatro = ["22/9/2022"]
 
 
-lista_clientes_registados = controller.criar_lista
-lista_usernames = controller.criar_lista
+lista_clientes_registados = []
+lista_usernames = []
 
 #Tiago Sousa: lista para usar no menu reservas
 reserva_opcoes = ["Consultar reserva", "Eliminar reserva", "Alterar reserva"]
@@ -98,20 +99,57 @@ def main():
         except EOFError:
             return
 
-        if controlos[0] == "Registar":
-            if controller.verificar_cliente(lista_clientes_registados,controlos[2]):
-                print("Já existe alguem registado com o username escolhido.")
-            else:
-                controller.registar_clientes(lista_clientes_registados, controlos[1], controlos[2], controlos[3])
-                print("Registo efetuado com sucesso")
 
-        
-
-        elif controlos[0] == "START":
+        if controlos[0] == "START":
             print() #apenas para aparecer separado, é so estetica
             print("Bem vindo à sala de espetáculos!\nEscolha uma opção.")
             print() #apenas para aparecer separado, é so estetica
             print('\n'.join(map(str, menu_sala_espetaculos)))
+
+        #Tiago Lança
+        if controlos[0] == "SignUp":
+            print() #apenas para aparecer separado, é so estetica
+            print("Para se registar, introduza o seu Nome, Username e Password.")
+            print() #apenas para aparecer separado, é so estetica
+            controlos = input().split(" ")
+
+            registo = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos)
+            while registo == True:
+                print("Já existe alguem registado com o username escolhido.")
+                print()
+                print("Para se registar, introduza o seu Nome, Username e Password.")
+                print()
+                print("Para voltar para o menu principal, digite Menu")
+                controlos = input().split(" ")
+                if controlos[0] == "Menu":
+                    controller.funcao_menu(menu_sala_espetaculos)
+                    break
+                elif registo == False:
+                    registo = False
+                    break
+            
+            if registo == False:
+                print() #apenas para aparecer separado, é so estetica
+                print("Registo efetuado com sucesso.")
+                print() #apenas para aparecer separado, é so estetica
+                controller.funcao_menu(menu_sala_espetaculos)
+
+
+        elif controlos[0] == "SignIn":
+            print() #apenas para aparecer separado, é so estetica
+            print("Para fazer login, introduza o seu Username e Password.")
+            print() #apenas para aparecer separado, é so estetica
+            controlos = input().split(" ")
+
+            login = controller.verificar_username(lista_clientes_registados, controlos)
+            if login == False:
+                print("Não existe registo efetuado com o username selecionado.")
+            else:
+                if login == True:
+                    print() #apenas para aparecer separado, é so estetica
+                    print("Sign in efetuado com sucesso.")
+
+
 
         elif controlos[0] == "Eventos":
             print() #apenas para aparecer separado, é so estetica
@@ -156,7 +194,7 @@ def main():
                     print(model.tabela_precos())
                     controlos = input()
 
-                
+                #Tiago Sousa: falta alterar bilheteira para os outros meses
                 if controlos == "Normal":
                     controller.print_palco_evento(dia)
                     print("Selecione o seu lugar.")
@@ -179,9 +217,7 @@ def main():
                     controller.print_palco_evento(dia)
                     print() #apenas para aparecer separado, é so estetica
                     print(f"O lugar {lugar} está reservado para si.\n")
-                    
-                    input("Pressione ENTER para continuar\n")
-                    print('\n'.join(map(str, menu_sala_espetaculos)))
+                    controller.funcao_menu(menu_sala_espetaculos)
                     
                         
 
@@ -261,12 +297,14 @@ def main():
 bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022, bilheteira_setembro_2022,
 bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
                 print(f"Lucro bilheteira no dia {temp_dia}: {valor_diario}")
+                controller.funcao_menu(menu_sala_espetaculos)
 
 
             elif controlos == "Ano":
                 print() #apenas para aparecer separado, é so estetica
                 valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
                 print(f"Lucro bilheteira no Ano de 2022: {valor_ano}")
+                controller.funcao_menu(menu_sala_espetaculos)
 
             elif controlos == "Mes":
                 print() #apenas para aparecer separado, é so estetica
@@ -278,61 +316,74 @@ bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_janeiro_2022)
                     print(f"Lucro bilheteira em Janeiro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Fevereiro":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_fevereiro_2022)
                     print(f"Lucro bilheteira em Fevereiro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Março":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_março_2022)
                     print(f"Lucro bilheteira em Março: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Abril":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes= controller.contar_bilheteira_mes(bilheteira_abril_2022)
                     print(f"Lucro bilheteira em Abril: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Maio":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_maio_2022)
                     print(f"Lucro bilheteira em Maio: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Junho":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_junho_2022)
                     print(f"Lucro bilheteira em Junho: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Julho":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_julho_2022)
                     print(f"Lucro bilheteira em Julho: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Agosto":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_agosto_2022)
                     print(f"Lucro bilheteira em Agosto: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Setembro":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_setembro_2022)
                     print(f"Lucro bilheteira em Setembro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Outubro":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_outubro_2022)
                     print(f"Lucro bilheteira em Outubro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Novembro":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_novembro_2022)
                     print(f"Lucro bilheteira em Novembro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
 
                 elif controlos == "Dezembro":
                     print() #apenas para aparecer separado, é so estetica
                     valor_mes = controller.contar_bilheteira_mes(bilheteira_dezembro_2022)
                     print(f"Lucro bilheteira em Dezembro: {valor_mes}")
+                    controller.funcao_menu(menu_sala_espetaculos)
+            
 
 
 

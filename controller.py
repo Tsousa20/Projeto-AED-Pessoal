@@ -1,39 +1,9 @@
+from pickle import FALSE
 import view
 import model
 import colorama
 from colorama import Fore
 
-
-def criar_lista():
-    lista = []
-    return lista
-
-
-def verificar_cliente(lista_clientes_registados, username):
-    for x in lista_clientes_registados:
-        if x[1] == username:
-            return True
-    return False
-
-
-def registar_clientes(lista_clientes_registados, nome, username, password):
-    cliente = [nome, username, password]
-    lista_clientes_registados.append(cliente)
-
-
-def verificacao_username(lista_clientes_registados, lista_usernames, username):
-    x = username
-    for x in lista_clientes_registados:
-        if x[1] in lista_clientes_registados:
-            lista_usernames.append(x)
-            return username
-
-
-def login_cliente(lista_username,username, password):
-    for x in lista_username:
-        if x in lista_username:
-            login =[username, password]
-            return login
 
 #Tiago e Rodrigo: funçao para criar listas para o diferentes espetaculos com as diferentes salas
 def criar_reservas_normal(x, y): #x = evento_dia / y = lugar
@@ -183,3 +153,31 @@ def guardar_dia_2digitos(controlos):
     print(type(controlos[:2]))
     return controlos[:2]
     
+def funcao_menu(menu_sala_espetaculos):
+    input("Pressione ENTER para continuar\n")
+    print('\n'.join(map(str, menu_sala_espetaculos)))
+
+#Tiago Lança
+
+def verificar_cliente(lista_clientes_registados, lista_usernames, controlos):
+    nome = controlos[0]
+    username = controlos[1]
+    password = controlos[2]
+    cliente = {'Nome': nome, 'Username': username, 'Password': password}
+    temp = False
+    if username in lista_usernames:
+        temp = True
+    else:
+        lista_usernames.append(username)
+        lista_clientes_registados.append(cliente)
+    return temp
+
+def verificar_username(lista_clientes_registados, controlos):
+    username = controlos[0]
+    password = controlos[1]
+    verificacao = False
+    for cliente in lista_clientes_registados:
+        if username == cliente.get('Username') and password == cliente.get('Password'):
+            verificacao = True
+    return verificacao
+
