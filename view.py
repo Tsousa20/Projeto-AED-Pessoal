@@ -16,17 +16,7 @@ sala = ["K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12
 "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14",
 "A1", "A2", "A13", "A14", ["A6", "A7", "A8", "A9", "F6", "F7", "F8", "F9"]]
 
-sala_para_print = "EVENTO_DIA", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12", "K13", "K14",
-"J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14",
-"I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14",
-"H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14",
-"G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14",
-"F1", "F2", "F6", "F7", "F8", "F9", "F13", "F14",
-"E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14 ",
-"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14",
-"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14",
-"B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14",
-"A1", "A2", "A6", "A7", "A8", "A9", "A13", "A14"
+sala_para_print = "EVENTO_DIA", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12", "K13", "K14","J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14","I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14","H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14","G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14","F1", "F2", "F6", "F7", "F8", "F9", "F13", "F14","E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14 ","D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14","C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14","B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14","A1", "A2", "A6", "A7", "A8", "A9", "A13", "A14"
 
 #Tiago Sousa: listas para bilheteiras
 bilheteira_janeiro_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #31
@@ -193,31 +183,64 @@ def main():
                     print("Que tipo de bilhete pretende?\n")
                     print(model.tabela_precos())
                     controlos = input()
-
-                #Tiago Sousa: falta alterar bilheteira para os outros meses
-                if controlos == "Normal":
-                    controller.print_palco_evento(dia)
-                    print("Selecione o seu lugar.")
-                    controlos = input()
                     
-                    #Tiago Sousa
-                    lugar = controlos
-                    variavel_teste = controller.criar_reservas_normal(dia, lugar)
-                    while variavel_teste == "Não reservado":
-                        print(f"Este lugar {lugar} já se encontra reservado. Por favor, selecione outro lugar.\n")
-                        input("Pressione ENTER para continuar\n")
+                if controlos == "Normal":
+                    print(dia)
+                    variavel_teste = "Não Reservado"
+
+                    while variavel_teste == "Não Reservado":
                         controller.print_palco_evento(dia)
                         print("Selecione o seu lugar\n")
-                        
                         lugar = input()
-                        variavel_teste = controller.criar_reservas_normal(dia, lugar)
+
+                        if lugar == "A6" or lugar == "A7" or lugar == "A8" or lugar == "A9" or lugar == "F6" or lugar == "F7" or lugar == "F8" or lugar == "F9":
+                            print("O lugar introduzido pertence a um lugar VIP, se pretende comprar um lugar VIP, porfavor, introduza MENU e selecione o bilhete VIP.\n")
+                        elif lugar not in sala:
+                            print("Porfavor Introduza um lugar válido\n")
+                        else:
+                            variavel_teste = controller.criar_reservas_normal(dia, lugar)
+                            if variavel_teste == "Não Reservado":
+                                print(f"Este lugar {lugar} já se encontra reservado. Por favor, selecione outro lugar.\n")
+
+                        input("Pressione ENTER para continuar\n")
                         
                     valor_bilhete = 4
-                    bilheteira_janeiro_2022.insert(variavel_dia - 1, valor_bilhete)
+                    bilheteira_janeiro_2022.insert(variavel_dia, valor_bilhete)
                     controller.print_palco_evento(dia)
                     print() #apenas para aparecer separado, é so estetica
                     print(f"O lugar {lugar} está reservado para si.\n")
-                    controller.funcao_menu(menu_sala_espetaculos)
+                    
+                    input("Pressione ENTER para continuar\n")
+                    print('\n'.join(map(str, menu_sala_espetaculos)))
+
+
+                if controlos == "VIP":
+                    variavel_teste = "Não Reservado"
+
+                    while variavel_teste == "Não Reservado":
+                        controller.print_palco_evento(dia)
+                        print("Selecione o seu lugar\n")
+                        lugar = input()
+
+                        if lugar in sala:
+                            print("O seu bilhete é VIP porfavor selecione um dos lugares assinalados a amarelo.\n")
+                        elif lugar not in sala[len(sala)-1]:
+                            print("Porfavor Introduza um lugar válido\n")
+                        else:
+                            variavel_teste = controller.criar_reservas_vip(dia, lugar)
+                            if variavel_teste == "Não Reservado":
+                                print(f"Este lugar {lugar} já se encontra reservado. Por favor, selecione outro lugar.\n")
+
+                        input("Pressione ENTER para continuar\n")
+                            
+                    valor_bilhete = 12
+                    bilheteira_janeiro_2022.insert(variavel_dia, valor_bilhete)
+                    controller.print_palco_evento(dia)
+                    print() #apenas para aparecer separado, é so estetica
+                    print(f"O lugar {lugar} está reservado para si.\n")
+                        
+                    input("Pressione ENTER para continuar\n")
+                    print('\n'.join(map(str, menu_sala_espetaculos)))
                     
                         
 
