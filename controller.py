@@ -388,7 +388,31 @@ def alterar_reserva_print_lugares_vip(x, y, z):  # x = evento_dia / y = lugar_No
             x.pop(i)
             x.insert(i, Fore.RED + model.lugares_print_copy[i - 1] + Fore.RESET)
 
-    for i in range(len(model.sala_para_print)): # Colocar a branco o antigo lugar
+    for i in range(len(model.sala_para_print)): # Colocar a amarelo o antigo lugar
         if z == model.sala_para_print[i]:
+            x.pop(i)
+            x.insert(i, Fore.YELLOW + model.lugares_print_copy[i - 1] + Fore.RESET)
+
+def eliminar_reserva_normal(x, y): # x = evento_dia / y = lugar
+    for i in range(len(view.lista_lugares_reservados)):
+            if view.lista_lugares_reservados[i][0] == x:
+                view.lista_lugares_reservados[i].append(y)
+                eliminar_reserva_palco_normal(view.lista_todos_eventos_print[i], y)
+
+def eliminar_reserva_palco_normal(x, y):  # x = evento_dia / y = lugar
+    for i in range(len(model.sala_para_print)): # Colocar a branco o antigo lugar
+        if y == model.sala_para_print[i]:
+            x.pop(i)
+            x.insert(i, Fore.WHITE + model.lugares_print_copy[i - 1] + Fore.RESET)
+
+def eliminar_reserva_vip(x, y): # x = evento_dia / y = lugar
+    for i in range(len(view.lista_lugares_reservados)):
+            if view.lista_lugares_reservados[i][0] == x:
+                view.lista_lugares_reservados[i][len(view.lista_lugares_reservados[i]) - 1].append(y)
+                eliminar_reserva_palco_vip(view.lista_todos_eventos_print[i], y)
+
+def eliminar_reserva_palco_vip(x, y):  # x = evento_dia / y = lugar
+    for i in range(len(model.sala_para_print)): # Colocar a branco o antigo lugar
+        if y == model.sala_para_print[i]:
             x.pop(i)
             x.insert(i, Fore.YELLOW + model.lugares_print_copy[i - 1] + Fore.RESET)
