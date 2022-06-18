@@ -84,32 +84,36 @@ def main():
             model.menu()
 
         # Tiago Lança
-        if controlos[0] == "Registar":
+        elif controlos[0] == "Registar":
+            registo = None
             print() 
             print("Para se registar, introduza o seu Nome, Username e Password.\n")
             controlos = input().split(" ")
+            if len(controlos) == 3:
+                registo = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos)
+                while registo == True:
+                    print()
+                    print("Já existe alguem registado com o username escolhido.\n")
+                    print("Para se registar, introduza o seu Nome, Username e Password.\n")
+                    print("Para voltar para o menu principal, digite Menu")
+                    controlos2 = input().split(" ")
 
-            registo = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos)
-            while registo == True:
-                print()
-                print("Já existe alguem registado com o username escolhido.\n")
-                print("Para se registar, introduza o seu Nome, Username e Password.\n")
-                print("Para voltar para o menu principal, digite Menu")
-                controlos2 = input().split(" ")
+                    if len(controlos2) == 1:
+                        if controlos2[0] == "Menu":
+                            controller.funcao_menu()
+                            break
+                    
 
-                if len(controlos2) == 1:
-                    if controlos2[0] == "Menu":
-                        controller.funcao_menu()
-                        break
-                
-
-                elif len(controlos) == 3:
-                    registo_break = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos2)
-                    if registo_break == False:
-                        print()
-                        print("Registo efetuado com sucesso.\n")
-                        controller.funcao_menu()
-                        break
+                    elif len(controlos) == 3:
+                        registo_break = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos2)
+                        if registo_break == False:
+                            print()
+                            print("Registo efetuado com sucesso.\n")
+                            controller.funcao_menu()
+                            break
+            else:
+                print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                controller.funcao_menu()
 
             if registo == False:
                 print()
@@ -121,32 +125,13 @@ def main():
             print()
             print("Para fazer login, introduza o seu Username e Password.\n")
             controlos = input().split(" ")
-            if model.sessao_iniciada == True:
-                model.sessao_iniciada = False
-                login = controller.verificar_username(lista_clientes_registados, controlos)
-                if login == False:
-                    print()
-                    print("Não existe registo efetuado com o username selecionado.\n")
-                    print("Para fazer login, introduza o seu Username e Password.\n")
-                    print("Para voltar para o menu principal, digite Menu")
-                    controlos = input().split(" ")
-                    if controlos[0] == "Menu":
-                        print()
-                        controller.funcao_menu()
-
-                else:
-                    if login == True:
-                        username = controlos[0]
-                        model.sessao_iniciada = True
-                        print()
-                        print("Login efetuado com sucesso.\n")
-                        controller.funcao_menu()
-            else:
-                if model.sessao_iniciada == False:
+            if len(controlos) == 2:
+                if model.sessao_iniciada == True:
+                    model.sessao_iniciada = False
                     login = controller.verificar_username(lista_clientes_registados, controlos)
                     if login == False:
                         print()
-                        print("Não existe registo efetuado com o username selecionado.\n")
+                        print("Não existe registo efetuado com o username e a password selecionada.\n")
                         print("Para fazer login, introduza o seu Username e Password.\n")
                         print("Para voltar para o menu principal, digite Menu")
                         controlos = input().split(" ")
@@ -161,6 +146,29 @@ def main():
                             print()
                             print("Login efetuado com sucesso.\n")
                             controller.funcao_menu()
+                else:
+                    if model.sessao_iniciada == False:
+                        login = controller.verificar_username(lista_clientes_registados, controlos)
+                        if login == False:
+                            print()
+                            print("Não existe registo efetuado com o username e a password selecionada.\n")
+                            print("Para fazer login, introduza o seu Username e Password.\n")
+                            print("Para voltar para o menu principal, digite Menu")
+                            controlos = input().split(" ")
+                            if controlos[0] == "Menu":
+                                print()
+                                controller.funcao_menu()
+
+                        else:
+                            if login == True:
+                                username = controlos[0]
+                                model.sessao_iniciada = True
+                                print()
+                                print("Login efetuado com sucesso.\n")
+                                controller.funcao_menu()
+            else:
+                print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                controller.funcao_menu()
 
        
 
@@ -275,7 +283,7 @@ def main():
 
                     if dia != 0:
                         print("Que tipo de bilhete pretende?\n")
-                        print(model.tabela_precos())
+                        model.tabela_precos()
                         controlos = input()
 
                     if controlos == "Normal":
@@ -313,40 +321,44 @@ def main():
                         input("Pressione ENTER para continuar\n")
                         model.menu()
 
-                if controlos == "VIP":
-                    tipo_bilhete = controlos
-                    lista_reservas.append(tipo_bilhete)
-                    variavel_teste = "Não Reservado"
+                    elif controlos == "VIP":
+                        tipo_bilhete = controlos
+                        lista_reservas.append(tipo_bilhete)
+                        variavel_teste = "Não Reservado"
 
-                    while variavel_teste == "Não Reservado":
+                        while variavel_teste == "Não Reservado":
+                            controller.print_palco_evento(dia)
+                            print("Selecione o seu lugar\n")
+                            lugar = input()
+
+                            if lugar in sala:
+                                print("O seu bilhete é VIP por favor selecione um dos lugares assinalados a amarelo.\n")
+                            elif lugar not in sala[len(sala) - 1]:
+                                print(f"{Fore.RED}Por favor Introduza um lugar válido{Fore.RESET}.\n")
+                            else:
+                                variavel_teste = controller.criar_reservas_vip(dia, lugar)
+                                if variavel_teste == "Não Reservado":
+                                    print(f"Este lugar {Fore.RED}{lugar}{Fore.RESET} já se encontra reservado. Por favor, selecione outro lugar.\n")
+
+                            input("Pressione ENTER para continuar\n")
+
+                        valor_bilhete = 12
+                        controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
+                                bilheteira_abril_2022,
+                                bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
+                                bilheteira_setembro_2022,
+                                bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+                    
                         controller.print_palco_evento(dia)
-                        print("Selecione o seu lugar\n")
-                        lugar = input()
-
-                        if lugar in sala:
-                            print("O seu bilhete é VIP por favor selecione um dos lugares assinalados a amarelo.\n")
-                        elif lugar not in sala[len(sala) - 1]:
-                            print(f"{Fore.RED}Por favor Introduza um lugar válido{Fore.RESET}.\n")
-                        else:
-                            variavel_teste = controller.criar_reservas_vip(dia, lugar)
-                            if variavel_teste == "Não Reservado":
-                                print(f"Este lugar {Fore.RED}{lugar}{Fore.RESET} já se encontra reservado. Por favor, selecione outro lugar.\n")
-
+                        controller.adicionar_dict(username, evento, reserva_dia, tipo_bilhete, lugar)
+                        print()  # apenas para aparecer separado, é so estetica
+                        print(f"O lugar {Fore.GREEN}{lugar}{Fore.RESET} está reservado para si.\n")
                         input("Pressione ENTER para continuar\n")
-
-                    valor_bilhete = 12
-                    controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
-                            bilheteira_abril_2022,
-                            bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
-                            bilheteira_setembro_2022,
-                            bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
-                   
-                    controller.print_palco_evento(dia)
-                    controller.adicionar_dict(username, evento, reserva_dia, tipo_bilhete, lugar)
-                    print()  # apenas para aparecer separado, é so estetica
-                    print(f"O lugar {Fore.GREEN}{lugar}{Fore.RESET} está reservado para si.\n")
-                    input("Pressione ENTER para continuar\n")
-                    model.menu()
+                        model.menu()
+                    
+                    else:
+                        print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                        controller.funcao_menu()
 
         # Tiago Sousa
         elif controlos[0] == "Bilheteira":
@@ -403,15 +415,16 @@ def main():
                 if controlos2 == "2022":
                     valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
                     print(f"Lucro bilheteira no Ano de 2022: {Fore.YELLOW}{valor_ano}{Fore.RESET}")
-                    controller.funcao_menu
+                    controller.funcao_menu()
 
                 elif controlos2 == "2023":
                     valor_ano_2023 = controller.contar_bilheteira_anual_2023(bilheteira_anual_2023)
                     print(f"Lucro bilheteira no Ano de 2023: {Fore.YELLOW}{valor_ano_2023}{Fore.RESET}")
-                    controller.funcao_menu
+                    controller.funcao_menu()
                 
                 else:
                     print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                    controller.funcao_menu()
 
             elif controlos == "Mes":
                 print()
@@ -493,6 +506,7 @@ def main():
                 
                 else:
                     print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                    controller.funcao_menu()
 
         elif controlos[0] == "Reservas":
             print()
@@ -506,190 +520,60 @@ def main():
                 print(f"Insira o seu Username e Password")
                 controlos = input().split(" ")
                 print()
+                if len(controlos) == 2:
+                    verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
+                    if verificar_user_reserva == False:
+                        print()
+                        print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
+                        print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
+                        print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
+                        controlos = input().split(" ")
+
+                        if controlos[0] == "Menu":
+                            print()
+                            controller.funcao_menu()
+
+                    else:
+                        if verificar_user_reserva == True:
+                            controller.consultar_reserva(controlos)
+                            print()
+                            controller.funcao_menu()
                 
-                verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
-                if verificar_user_reserva == False:
-                    print()
-                    print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
-                    print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
-                    print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
-                    controlos = input().split(" ")
-
-                    if controlos[0] == "Menu":
-                        print()
-                        controller.funcao_menu()
-
                 else:
-                    if verificar_user_reserva == True:
-                        controller.consultar_reserva(controlos)
-                        print()
-                        controller.funcao_menu()
+                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                    controller.funcao_menu()
             
             elif controlos[0] == "Alterar":
                 print()
                 print(f"Insira o seu Username e Password")
                 controlos = input().split(" ")
                 print()
-
-                verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
-                if verificar_user_reserva == False:
-                    print()
-                    print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
-                    print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
-                    print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
-                    controlos = input().split(" ")
-
-                    if controlos[0] == "Menu":
+                if len(controlos) == 2:
+                    verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
+                    if verificar_user_reserva == False:
                         print()
-                        controller.funcao_menu()
+                        print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
+                        print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
+                        print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
+                        controlos = input().split(" ")
 
-                else:
-                    if verificar_user_reserva == True:
-                        reservas_referentes_utilizador = controller.alterar_eliminar_reserva(controlos)
-                        if len(reservas_referentes_utilizador) == 0:
-                            print("Você não tem nenhuma reserva efetuada, voltando para o MENU")
+                        if controlos[0] == "Menu":
+                            print()
                             controller.funcao_menu()
-                        else:
-                            controlos = int(input("Introduza o número referente à reserva que deseja alterar:\n"))
-                            if 0 < controlos and controlos <= len(reservas_referentes_utilizador):
-                                reserva_selecionada = reservas_referentes_utilizador[controlos - 1]
-                                tipo_bilhete = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
-                                dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
-                                lugar_antigo = reservas_referentes_utilizador[controlos - 1].get("Lugar")
 
-                                if len(dia) == 8:
-                                    variavel_dia = int(controller.guardar_dia_1digito(dia))
-                                    variavel_mes = int(controller.guardar_mes_1digito(dia))
-
-                                elif len(dia) == 9:
-                                    variavel_teste = controller.guardar_dia_2digitos(dia)
-                                
-                                    if "/" in variavel_teste:
-                                        variavel_dia = int(controller.guardar_dia_1digito(variavel_teste))
-                                        variavel_mes = int(controller.guardar_mes_9elementos_2digitos(dia))
-
-                                    else:
-                                        variavel_dia = int(controller.guardar_dia_2digitos(dia))
-                                        variavel_mes = int(controller.guardar_mes_9elementos(dia))
-
-                                elif len(dia) == 10:
-                                    variavel_dia = int(controller.guardar_dia_2digitos(dia))
-                                    variavel_mes = int(controller.guardar_mes_2digitos(dia))
-
-                                controller.print_palco_evento(dia)
-
-                                if tipo_bilhete == "Normal":
-                                    variavel_teste = "Não Reservado"
-
-                                    while variavel_teste == "Não Reservado":
-                                        controller.print_palco_evento(dia)
-                                        print("Selecione o seu lugar\n")
-                                        lugar_novo = input()
-
-                                        if lugar_novo == "A6" or lugar_novo == "A7" or lugar_novo == "A8" or lugar_novo == "A9" or lugar_novo == "F6" or lugar_novo == "F7" or lugar_novo == "F8" or lugar_novo == "F9":
-                                            print("O lugar introduzido pertence a um lugar VIP e o seu lugar é Normal, se pretende alterar para um lugar VIP, será lhe retirado 8 euros da sua conta.\n")
-                                            controlos = input("S para alterar, N para continuar\n(S \ N)\n")
-                                            if controlos == "S":
-                                                variavel_teste = controller.alterar_reservas_normal_vip(dia, lugar_novo, lugar_antigo)
-                                                if variavel_teste == "Reservado":
-                                                    valor_bilhete = 8
-                                                    tipo_bilhete = "VIP"
-                                                    controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
-                                                            bilheteira_abril_2022,
-                                                            bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
-                                                            bilheteira_setembro_2022,
-                                                            bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
-                                                else: 
-                                                    print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
-                                        elif lugar_novo not in sala:
-                                            print("Porfavor Introduza um lugar válido\n")
-                                        else:
-                                            variavel_teste = controller.alterar_reservas_normal_normal(dia, lugar_novo, lugar_antigo)
-                                            if variavel_teste == "Não Reservado":
-                                                print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
-
-                                        input("Pressione ENTER para continuar\n")
-
-                                if tipo_bilhete == "VIP":
-                                    variavel_teste = "Não Reservado"
-
-                                    while variavel_teste == "Não Reservado":
-                                        controller.print_palco_evento(dia)
-                                        print("Selecione o seu lugar\n")
-                                        lugar_novo = input()
-
-                                        if lugar_novo in sala:
-                                            print("O lugar introduzido pertence a um lugar Normal e o seu lugar é VIP, se pretende alterar para um lugar Normal, será lhe devolvido 8 euros para a sua conta.\n")
-                                            controlos = input("S para alterar, N para continuar.\n(S \ N)\n")
-                                            if controlos == "S":
-                                                variavel_teste = controller.alterar_reservas_vip_normal(dia, lugar_novo, lugar_antigo)
-                                                if variavel_teste == "Reservado":
-                                                    valor_bilhete = -8
-                                                    tipo_bilhete = "Normal"
-                                                    controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
-                                                            bilheteira_abril_2022,
-                                                            bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
-                                                            bilheteira_setembro_2022,
-                                                            bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
-                                                else:
-                                                    print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
-                                        elif lugar_novo not in sala[len(sala) - 1]:
-                                            print("Por favor Introduza um lugar válido\n")
-                                        else:
-                                            variavel_teste = controller.alterar_reservas_vip_vip(dia, lugar_novo, lugar_antigo)
-                                            if variavel_teste == "Não Reservado":
-                                                print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
-
-                                        input("Pressione ENTER para continuar\n")
-                                    
-                                controller.print_palco_evento(dia)
-                                controller.eliminar_antiga_adicionar_nova_reserva(reserva_selecionada, lugar_novo, tipo_bilhete)
-                                print("Alteração Efetuada com sucesso!\n")
-                                model.menu()
-
+                    else:
+                        if verificar_user_reserva == True:
+                            reservas_referentes_utilizador = controller.alterar_eliminar_reserva(controlos)
+                            if len(reservas_referentes_utilizador) == 0:
+                                print("Você não tem nenhuma reserva efetuada, voltando para o MENU")
+                                controller.funcao_menu()
                             else:
-                                print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
-                                controller.funcao_menu
-
-
-            elif controlos[0] == "Eliminar":
-                print()
-                print(f"Insira o seu Username e Password")
-                controlos = input().split(" ")
-                print()
-
-                verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
-                if verificar_user_reserva == False:
-                    print()
-                    print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
-                    print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
-                    print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
-                    controlos = input().split(" ")
-
-                    if controlos[0] == "Menu":
-                        print()
-                        controller.funcao_menu()
-
-                else:
-                    if verificar_user_reserva == True:
-                        reservas_referentes_utilizador = controller.alterar_eliminar_reserva(controlos)
-                        if len(reservas_referentes_utilizador) == 0:
-                            print("Você não tem nenhuma reserva efetuada, voltando para o MENU")
-                            controller.funcao_menu()
-                        else:
-                            controlos = int(input(f"Introduza o número referente à reserva que deseja {Fore.RED}ELIMINAR:{Fore.RESET}\n"))
-                            if 0 < controlos and controlos <= len(reservas_referentes_utilizador):
-                                reserva_selecionada = reservas_referentes_utilizador[controlos - 1]
-                                tipo_bilhete = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
-                                dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
-
-                                decisao = input((f"\nTem a certeza que deseja apagar a reserva selecionada?\nS para Sim, N para Não\n(S \ N)\n"))
-                                if decisao == "S":
-                                    controller.eliminar_reserva(reserva_selecionada)
-                                    if tipo_bilhete == "Normal":
-                                        valor_bilhete = -4
-                                    else:
-                                        valor_bilhete = -12
+                                controlos = int(input("Introduza o número referente à reserva que deseja alterar:\n"))
+                                if 0 < controlos and controlos <= len(reservas_referentes_utilizador):
+                                    reserva_selecionada = reservas_referentes_utilizador[controlos - 1]
+                                    tipo_bilhete = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
+                                    dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
+                                    lugar_antigo = reservas_referentes_utilizador[controlos - 1].get("Lugar")
 
                                     if len(dia) == 8:
                                         variavel_dia = int(controller.guardar_dia_1digito(dia))
@@ -710,23 +594,168 @@ def main():
                                         variavel_dia = int(controller.guardar_dia_2digitos(dia))
                                         variavel_mes = int(controller.guardar_mes_2digitos(dia))
 
-                                    controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
-                                                            bilheteira_abril_2022,
-                                                            bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
-                                                            bilheteira_setembro_2022,
-                                                            bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+                                    controller.print_palco_evento(dia)
 
-                                    print("A sua reserva foi eliminada com sucesso.")
+                                    if tipo_bilhete == "Normal":
+                                        variavel_teste = "Não Reservado"
+
+                                        while variavel_teste == "Não Reservado":
+                                            controller.print_palco_evento(dia)
+                                            print("Selecione o seu lugar\n")
+                                            lugar_novo = input()
+
+                                            if lugar_novo == "A6" or lugar_novo == "A7" or lugar_novo == "A8" or lugar_novo == "A9" or lugar_novo == "F6" or lugar_novo == "F7" or lugar_novo == "F8" or lugar_novo == "F9":
+                                                print("O lugar introduzido pertence a um lugar VIP e o seu lugar é Normal, se pretende alterar para um lugar VIP, será lhe retirado 8 euros da sua conta.\n")
+                                                controlos = input("S para alterar, N para continuar\n(S \ N)\n")
+                                                if controlos == "S":
+                                                    variavel_teste = controller.alterar_reservas_normal_vip(dia, lugar_novo, lugar_antigo)
+                                                    if variavel_teste == "Reservado":
+                                                        valor_bilhete = 8
+                                                        tipo_bilhete = "VIP"
+                                                        controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
+                                                                bilheteira_abril_2022,
+                                                                bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
+                                                                bilheteira_setembro_2022,
+                                                                bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+                                                    else: 
+                                                        print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
+                                            elif lugar_novo not in sala:
+                                                print("Porfavor Introduza um lugar válido\n")
+                                            else:
+                                                variavel_teste = controller.alterar_reservas_normal_normal(dia, lugar_novo, lugar_antigo)
+                                                if variavel_teste == "Não Reservado":
+                                                    print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
+
+                                            input("Pressione ENTER para continuar\n")
+
+                                    if tipo_bilhete == "VIP":
+                                        variavel_teste = "Não Reservado"
+
+                                        while variavel_teste == "Não Reservado":
+                                            controller.print_palco_evento(dia)
+                                            print("Selecione o seu lugar\n")
+                                            lugar_novo = input()
+
+                                            if lugar_novo in sala:
+                                                print("O lugar introduzido pertence a um lugar Normal e o seu lugar é VIP, se pretende alterar para um lugar Normal, será lhe devolvido 8 euros para a sua conta.\n")
+                                                controlos = input("S para alterar, N para continuar.\n(S \ N)\n")
+                                                if controlos == "S":
+                                                    variavel_teste = controller.alterar_reservas_vip_normal(dia, lugar_novo, lugar_antigo)
+                                                    if variavel_teste == "Reservado":
+                                                        valor_bilhete = -8
+                                                        tipo_bilhete = "Normal"
+                                                        controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
+                                                                bilheteira_abril_2022,
+                                                                bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
+                                                                bilheteira_setembro_2022,
+                                                                bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+                                                    else:
+                                                        print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
+                                            elif lugar_novo not in sala[len(sala) - 1]:
+                                                print("Por favor Introduza um lugar válido\n")
+                                            else:
+                                                variavel_teste = controller.alterar_reservas_vip_vip(dia, lugar_novo, lugar_antigo)
+                                                if variavel_teste == "Não Reservado":
+                                                    print(f"Este lugar {lugar_novo} já se encontra reservado. Por favor, selecione outro lugar.\n")
+
+                                            input("Pressione ENTER para continuar\n")
+                                        
+                                    controller.print_palco_evento(dia)
+                                    controller.eliminar_antiga_adicionar_nova_reserva(reserva_selecionada, lugar_novo, tipo_bilhete)
+                                    print("Alteração Efetuada com sucesso!\n")
                                     controller.funcao_menu()
-                                elif decisao == "N":
-                                    print("Voltando para o MENU")
-                                    controller.funcao_menu()
+
                                 else:
-                                    print("Instrução não compreendida voltando para o MENU")
+                                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
                                     controller.funcao_menu()
-                            else:
-                                print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                else:
+                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                    controller.funcao_menu()
+
+
+            elif controlos[0] == "Eliminar":
+                print()
+                print(f"Insira o seu Username e Password")
+                controlos = input().split(" ")
+                print()
+                if len(controlos) == 2:
+                    verificar_user_reserva = controller.verificar_username(lista_clientes_registados, controlos)
+                    if verificar_user_reserva == False:
+                        print()
+                        print(f"{Fore.RED}Não existe registo efetuado com o username selecionado.{Fore.RESET}\n")
+                        print(f"Para fazer {Fore.YELLOW}LOGIN{Fore.RED}, introduza o seu Username e Password.\n")
+                        print(f"Para voltar para o menu principal, digite {Fore.YELLOW}Menu{Fore.RESET}")
+                        controlos = input().split(" ")
+
+                        if controlos[0] == "Menu":
+                            print()
+                            controller.funcao_menu()
+
+                    else:
+                        if verificar_user_reserva == True:
+                            reservas_referentes_utilizador = controller.alterar_eliminar_reserva(controlos)
+                            if len(reservas_referentes_utilizador) == 0:
+                                print("Você não tem nenhuma reserva efetuada, voltando para o MENU")
                                 controller.funcao_menu()
+                            else:
+                                controlos = int(input(f"Introduza o número referente à reserva que deseja {Fore.RED}ELIMINAR:{Fore.RESET}\n"))
+                                if 0 < controlos and controlos <= len(reservas_referentes_utilizador):
+                                    reserva_selecionada = reservas_referentes_utilizador[controlos - 1]
+                                    tipo_bilhete = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
+                                    dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
+                                    lugar = reservas_referentes_utilizador[controlos - 1].get("Lugar")
+
+                                    decisao = input((f"\nTem a certeza que deseja apagar a reserva selecionada?\nS para Sim, N para Não\n(S \ N)\n"))
+                                    if decisao == "S":
+                                        controller.eliminar_reserva(reserva_selecionada)
+                                        if tipo_bilhete == "Normal":
+                                            controller.eliminar_reserva_normal(dia, lugar)
+                                            valor_bilhete = -4
+                                        else:
+                                            controller.eliminar_reserva_vip(dia, lugar)
+                                            valor_bilhete = -12
+
+                                        if len(dia) == 8:
+                                            variavel_dia = int(controller.guardar_dia_1digito(dia))
+                                            variavel_mes = int(controller.guardar_mes_1digito(dia))
+
+                                        elif len(dia) == 9:
+                                            variavel_teste = controller.guardar_dia_2digitos(dia)
+                                        
+                                            if "/" in variavel_teste:
+                                                variavel_dia = int(controller.guardar_dia_1digito(variavel_teste))
+                                                variavel_mes = int(controller.guardar_mes_9elementos_2digitos(dia))
+
+                                            else:
+                                                variavel_dia = int(controller.guardar_dia_2digitos(dia))
+                                                variavel_mes = int(controller.guardar_mes_9elementos(dia))
+
+                                        elif len(dia) == 10:
+                                            variavel_dia = int(controller.guardar_dia_2digitos(dia))
+                                            variavel_mes = int(controller.guardar_mes_2digitos(dia))
+
+                                        controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
+                                                                bilheteira_abril_2022,
+                                                                bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
+                                                                bilheteira_setembro_2022,
+                                                                bilheteira_outubro_2022, bilheteira_novembro_2022, bilheteira_dezembro_2022)
+
+
+                                        print("A sua reserva foi eliminada com sucesso.")
+                                        controller.funcao_menu()
+                                    elif decisao == "N":
+                                        print("Voltando para o MENU")
+                                        controller.funcao_menu()
+                                    else:
+                                        print("Instrução não compreendida voltando para o MENU")
+                                        controller.funcao_menu()
+                                else:
+                                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                                    controller.funcao_menu()
+
+                else:
+                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                    controller.funcao_menu()
 
         elif controlos[0] == "Eliminar_Evento":                    
             if model.admin_logado == False:
@@ -741,3 +770,7 @@ def main():
                     dia = input()
 
                     '\n'.join(map(str, model.dias_musical))
+
+        else:
+            print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+            controller.funcao_menu()
