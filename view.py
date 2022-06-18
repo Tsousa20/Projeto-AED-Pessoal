@@ -749,7 +749,7 @@ def main():
                                         print("A sua reserva foi eliminada com sucesso.")
                                         controller.funcao_menu()
                                     elif decisao == "Não":
-                                        print("Voltando para o MENU")
+                                        print(f"Reserva {Fore.RED}CANCELADA{Fore.RESET} voltando para o MENU")
                                         controller.funcao_menu()
                                     else:
                                         print("Instrução não compreendida voltando para o MENU")
