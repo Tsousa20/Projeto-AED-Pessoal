@@ -63,7 +63,7 @@ lista_lugares_reservados = []
 # Lista dos eventos que têm reservas e que vão ser printados
 lista_todos_eventos_print = []
 
-lista_clientes_registados = []
+lista_clientes_registados = [{'Username': 'admin', 'Password': 'admin'}]
 lista_usernames = []
 lista_sessao_iniciada = []
 lista_reservas = []
@@ -108,7 +108,7 @@ def main():
                         registo_break = controller.verificar_cliente(lista_clientes_registados, lista_usernames, controlos2)
                         if registo_break == False:
                             print()
-                            print("Registo efetuado com sucesso.\n")
+                            print(f"Registo efetuado com {Fore.GREEN}SUCESSO!{Fore.RESET}\n")
                             controller.funcao_menu()
                             break
             else:
@@ -117,7 +117,7 @@ def main():
 
             if registo == False:
                 print()
-                print("Registo efetuado com sucesso.\n")
+                print(f"Registo efetuado com {Fore.GREEN}SUCESSO!{Fore.RESET}\n")
                 controller.funcao_menu()
 
 
@@ -144,7 +144,7 @@ def main():
                             username = controlos[0]
                             model.sessao_iniciada = True
                             print()
-                            print("Login efetuado com sucesso.\n")
+                            print(f"Login efetuado com {Fore.GREEN}SUCESSO!{Fore.RESET}\n")
                             controller.funcao_menu()
                 else:
                     if model.sessao_iniciada == False:
@@ -164,7 +164,7 @@ def main():
                                 username = controlos[0]
                                 model.sessao_iniciada = True
                                 print()
-                                print("Login efetuado com sucesso.\n")
+                                print(f"Login efetuado com {Fore.GREEN}SUCESSO!{Fore.RESET}\n")
                                 controller.funcao_menu()
             else:
                 print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
@@ -175,9 +175,9 @@ def main():
         elif controlos[0] == "Eventos":
             print()
             print("Por favor, escolha um evento!\n")
-            model.cartaz_eventos()
+            model.cartaz_eventos()()
             controlos = input()
-            dia = "NÃO EXISTE"
+            dia = 0
             dia_existe = "NÃO"
             erro_instrucao = "NÃO"
 
@@ -269,7 +269,7 @@ def main():
                         variavel_mes = int(controller.guardar_mes_2digitos(controlos))
                 else:
                     print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
-                    model.menu()
+                    controller.funcao_menu()
                     erro_instrucao = "SIM"
 
                 verificacao_login = controller.verificar_sessao_iniciada()
@@ -362,151 +362,156 @@ def main():
 
         # Tiago Sousa
         elif controlos[0] == "Bilheteira":
-            print()
-            print("Selecione uma opção.\n")
-            model.bilheteira_menu_opcao()
-            controlos = input()
-            verificacao = 0
-
-            if controlos == "Dia":
-                print("\nSelecione o mês, a que pertence o dia.\n")
-                model.bilheteira_menu_meses()
-                controlos1 = input()
-                temp_mes = controlos1
-                if temp_mes in model.meses:
-                    print("Selecione o dia.\n")
-                    controlos2 = int(input())
-                    temp_dia = controlos2
-                    print(temp_mes)
-                    if temp_mes == "janeiro" or temp_mes == "março" or temp_mes == "maio" or temp_mes == "julho" or temp_mes == "agosto" or temp_mes == "outobro" or temp_mes == "dezembro":
-                        if temp_dia in model.dias_mes_31:
-                            verificacao = "OK"
-                    elif temp_mes == "abril" or temp_mes == "junho" or temp_mes == "setembro" or temp_mes == "novembro":
-                        if temp_dia in model.dias_mes_30:
-                            verificacao = "OK"
-                    elif temp_mes == "fevereiro":
-                        if temp_dia in model.dias_fevereiro:
-                            verificacao = "OK"
-                    
-                    if verificacao == "OK":
-                        valor_diario = controller.contar_bilheteira_dia(temp_mes, temp_dia, bilheteira_janeiro_2022,
-                                                                bilheteira_fevereiro_2022, bilheteira_marco_2022,
-                                                                bilheteira_abril_2022,
-                                                                bilheteira_maio_2022, bilheteira_junho_2022,
-                                                                bilheteira_julho_2022, bilheteira_agosto_2022,
-                                                                bilheteira_setembro_2022,
-                                                                bilheteira_outubro_2022, bilheteira_novembro_2022,
-                                                                bilheteira_dezembro_2022)
-                        print(f"Lucro bilheteira no dia {temp_dia}: {Fore.YELLOW}{valor_diario}{Fore.RESET}\n")
-                        controller.funcao_menu()
-                    else:
-                        print(f"{Fore.RED}Dia não reconhecido, voltando ao menu inicial.{Fore.RESET}")
-                        controller.funcao_menu()
-                else:
-                    print(f"{Fore.RED}Mês não reconhecido, voltando ao menu inicial.{Fore.RESET}")
-                    controller.funcao_menu()
-
-
-            elif controlos == "Ano":
+            if model.admin_logado == True:
                 print()
-                print("Selecione o ano 2022 ou o ano 2023.\n")
-                controlos2 = input()
-                print()
-                if controlos2 == "2022":
-                    valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
-                    print(f"Lucro bilheteira no Ano de 2022: {Fore.YELLOW}{valor_ano}{Fore.RESET}")
-                    controller.funcao_menu()
-
-                elif controlos2 == "2023":
-                    valor_ano_2023 = controller.contar_bilheteira_anual_2023(bilheteira_anual_2023)
-                    print(f"Lucro bilheteira no Ano de 2023: {Fore.YELLOW}{valor_ano_2023}{Fore.RESET}")
-                    controller.funcao_menu()
-                
-                else:
-                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
-                    controller.funcao_menu()
-
-            elif controlos == "Mes":
-                print()
-                print("Selecione o mês.\n")
-                model.bilheteira_menu_meses()
+                print("Selecione uma opção.\n")
+                model.bilheteira_menu_opcao()
                 controlos = input()
+                verificacao = 0
 
-                if controlos == "janeiro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_janeiro_2022)
-                    print(f"Lucro bilheteira em Janeiro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                if controlos == "Dia":
+                    print("\nSelecione o mês, a que pertence o dia.\n")
+                    model.bilheteira_menu_meses()
+                    controlos1 = input()
+                    temp_mes = controlos1
+                    if temp_mes in model.meses:
+                        print("Selecione o dia.\n")
+                        controlos2 = int(input())
+                        temp_dia = controlos2
+                        print(temp_mes)
+                        if temp_mes == "janeiro" or temp_mes == "março" or temp_mes == "maio" or temp_mes == "julho" or temp_mes == "agosto" or temp_mes == "outobro" or temp_mes == "dezembro":
+                            if temp_dia in model.dias_mes_31:
+                                verificacao = "OK"
+                        elif temp_mes == "abril" or temp_mes == "junho" or temp_mes == "setembro" or temp_mes == "novembro":
+                            if temp_dia in model.dias_mes_30:
+                                verificacao = "OK"
+                        elif temp_mes == "fevereiro":
+                            if temp_dia in model.dias_fevereiro:
+                                verificacao = "OK"
+                        
+                        if verificacao == "OK":
+                            valor_diario = controller.contar_bilheteira_dia(temp_mes, temp_dia, bilheteira_janeiro_2022,
+                                                                    bilheteira_fevereiro_2022, bilheteira_marco_2022,
+                                                                    bilheteira_abril_2022,
+                                                                    bilheteira_maio_2022, bilheteira_junho_2022,
+                                                                    bilheteira_julho_2022, bilheteira_agosto_2022,
+                                                                    bilheteira_setembro_2022,
+                                                                    bilheteira_outubro_2022, bilheteira_novembro_2022,
+                                                                    bilheteira_dezembro_2022)
+                            print(f"Lucro bilheteira no dia {temp_dia}: {Fore.YELLOW}{valor_diario}{Fore.RESET}\n")
+                            controller.funcao_menu()
+                        else:
+                            print(f"{Fore.RED}Dia não reconhecido, voltando ao menu inicial.{Fore.RESET}")
+                            controller.funcao_menu()
+                    else:
+                        print(f"{Fore.RED}Mês não reconhecido, voltando ao menu inicial.{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "fevereiro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_fevereiro_2022)
-                    print(f"Lucro bilheteira em Fevereiro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
 
-                elif controlos == "março":
+                elif controlos == "Ano":
                     print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_marco_2022)
-                    print(f"Lucro bilheteira em Março: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    print("Selecione o ano 2022 ou o ano 2023.\n")
+                    controlos2 = input()
+                    print()
+                    if controlos2 == "2022":
+                        valor_ano = controller.contar_bilheteira_anual(bilheteira_anual_2022)
+                        print(f"Lucro bilheteira no Ano de 2022: {Fore.YELLOW}{valor_ano}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "abril":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_abril_2022)
-                    print(f"Lucro bilheteira em Abril: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos2 == "2023":
+                        valor_ano_2023 = controller.contar_bilheteira_anual_2023(bilheteira_anual_2023)
+                        print(f"Lucro bilheteira no Ano de 2023: {Fore.YELLOW}{valor_ano_2023}{Fore.RESET}")
+                        controller.funcao_menu()
+                    
+                    else:
+                        print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "maio":
+                elif controlos == "Mes":
                     print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_maio_2022)
-                    print(f"Lucro bilheteira em Maio: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    print("Selecione o mês.\n")
+                    model.bilheteira_menu_meses()
+                    controlos = input()
 
-                elif controlos == "junho":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_junho_2022)
-                    print(f"Lucro bilheteira em Junho: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    if controlos == "janeiro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_janeiro_2022)
+                        print(f"Lucro bilheteira em Janeiro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "julho":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_julho_2022)
-                    print(f"Lucro bilheteira em Julho: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "fevereiro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_fevereiro_2022)
+                        print(f"Lucro bilheteira em Fevereiro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "agosto":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_agosto_2022)
-                    print(f"Lucro bilheteira em Agosto: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "março":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_marco_2022)
+                        print(f"Lucro bilheteira em Março: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "setembro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_setembro_2022)
-                    print(f"Lucro bilheteira em Setembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "abril":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_abril_2022)
+                        print(f"Lucro bilheteira em Abril: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "outubro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_outubro_2022)
-                    print(f"Lucro bilheteira em Outubro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "maio":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_maio_2022)
+                        print(f"Lucro bilheteira em Maio: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "novembro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_novembro_2022)
-                    print(f"Lucro bilheteira em Novembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "junho":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_junho_2022)
+                        print(f"Lucro bilheteira em Junho: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
 
-                elif controlos == "dezembro":
-                    print()
-                    valor_mes = controller.contar_bilheteira_mes(bilheteira_dezembro_2022)
-                    print(f"Lucro bilheteira em Dezembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
-                    controller.funcao_menu()
-                
-                else:
-                    print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
-                    controller.funcao_menu()
+                    elif controlos == "julho":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_julho_2022)
+                        print(f"Lucro bilheteira em Julho: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+
+                    elif controlos == "agosto":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_agosto_2022)
+                        print(f"Lucro bilheteira em Agosto: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+
+                    elif controlos == "setembro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_setembro_2022)
+                        print(f"Lucro bilheteira em Setembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+
+                    elif controlos == "outubro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_outubro_2022)
+                        print(f"Lucro bilheteira em Outubro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+
+                    elif controlos == "novembro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_novembro_2022)
+                        print(f"Lucro bilheteira em Novembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+
+                    elif controlos == "dezembro":
+                        print()
+                        valor_mes = controller.contar_bilheteira_mes(bilheteira_dezembro_2022)
+                        print(f"Lucro bilheteira em Dezembro: {Fore.YELLOW}{valor_mes}{Fore.RESET}")
+                        controller.funcao_menu()
+                    
+                    else:
+                        print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
+                        controller.funcao_menu()
+
+            else:
+                print(f"{Fore.RED}Apenas o administrador pode aceder a esta opção!{Fore.RESET}")
+                controller.funcao_menu()
 
         elif controlos[0] == "Reservas":
             print()
@@ -757,19 +762,44 @@ def main():
                     print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
                     controller.funcao_menu()
 
-        elif controlos[0] == "Eliminar_Evento":                    
+        elif controlos[0] == "Eliminar_Evento":                                        
             if model.admin_logado == False:
-                print("Apenas o administrador pode aceder aqui!")
+                print(f"{Fore.RED}Apenas o administrador pode aceder a esta opção!{Fore.RESET}")
+                controller.funcao_menu()
             else:
                 print("Selecione o Evento que pretende alterar para eliminar")
-                model.cartaz_eventos()
+                model.cartaz_eventos()()
                 controlos = input()
                 if controlos == "Brodway":
                     print("Selecione o dia que pretende eliminar")
-                    #adicionar dia
+                    model.cartaz_eventos()
                     dia = input()
-
-                    '\n'.join(map(str, model.dias_musical))
+                    if dia in model.dias_brodway:
+                        model.dias_brodway.remove(dia)
+                elif controlos == "Circo":
+                    print("Selecione o dia que pretende eliminar")
+                    model.cartaz_eventos()()
+                    dia = input()
+                    if dia in model.dias_circo:
+                        model.dias_circo.remove(dia)
+                elif controlos == "Teatro":
+                    print("Selecione o dia que pretende eliminar")
+                    model.cartaz_eventos()
+                    dia = input()
+                    if dia in model.dias_teatro:
+                        model.dias_teatro.remove(dia)
+                elif controlos == "Opera":
+                    print("Selecione o dia que pretende eliminar")
+                    model.cartaz_eventos()
+                    dia = input()
+                    if dia in model.dias_opera:
+                        model.dias_opera.remove(dia)
+                elif controlos == "Musical":
+                    print("Selecione o dia que pretende eliminar")
+                    model.cartaz_eventos()
+                    dia = input()
+                    if dia in model.dias_musical:
+                        model.dias_musical.remove(dia)
 
         else:
             print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
