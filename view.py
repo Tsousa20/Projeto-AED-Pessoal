@@ -710,8 +710,8 @@ def main():
                                     dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
                                     lugar = reservas_referentes_utilizador[controlos - 1].get("Lugar")
 
-                                    decisao = input((f"\nTem a certeza que deseja apagar a reserva selecionada?\nS para Sim, N para Não\n(S \ N)\n"))
-                                    if decisao == "S":
+                                    decisao = input((f"\nTem a certeza que deseja apagar a reserva selecionada?\nEscreva Sim ou Não."))
+                                    if decisao == "Sim":
                                         controller.eliminar_reserva(reserva_selecionada)
                                         if tipo_bilhete == "Normal":
                                             controller.eliminar_reserva_normal(dia, lugar)
@@ -748,7 +748,7 @@ def main():
 
                                         print("A sua reserva foi eliminada com sucesso.")
                                         controller.funcao_menu()
-                                    elif decisao == "N":
+                                    elif decisao == "Não":
                                         print("Voltando para o MENU")
                                         controller.funcao_menu()
                                     else:
