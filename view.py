@@ -83,7 +83,6 @@ def main():
             print()
             model.menu()
 
-        # Tiago Lança
         elif controlos[0] == "Registar":
             registo = None
             print() 
@@ -181,7 +180,6 @@ def main():
             dia_existe = "NÃO"
             erro_instrucao = "NÃO"
 
-            # EVENTOS BRODWAY
             if controlos == "Brodway" or "Circo" or "Musical" or "Opera" or "Teatro":
                 if controlos == "Circo":
                     evento = controlos
@@ -360,7 +358,6 @@ def main():
                         print(f"{Fore.RED}Instrução não compreendida, voltando ao menu inicial.{Fore.RESET}")
                         controller.funcao_menu()
 
-        # Tiago Sousa
         elif controlos[0] == "Bilheteira":
             if model.admin_logado == True:
                 print()
