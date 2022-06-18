@@ -6,7 +6,7 @@ import colorama
 from colorama import Fore
 
 
-# Tiago e Rodrigo: funçao para criar listas para o diferentes espetaculos com as diferentes salas
+# Funçao para criar listas para o diferentes espetaculos com as diferentes salas
 def criar_reservas_normal(x, y):  # x = evento_dia / y = lugar
     if len(view.lista_lugares_reservados) == 0:
         # lista normal
@@ -31,6 +31,7 @@ def criar_reservas_normal(x, y):  # x = evento_dia / y = lugar
                 else:
                     return "Não Reservado"
 
+        #Lista normal
         temp = view.sala.copy()
         temp.insert(0, x)
         temp.remove(y)
@@ -67,6 +68,7 @@ def criar_reservas_vip(x, y):
                 else:
                     return "Não Reservado"
 
+        #Lista normal
         temp = view.sala.copy()
         temp.insert(0, x)
         temp[len(temp) - 1].remove(y)
@@ -215,8 +217,8 @@ def adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilhet
         bilheteira_dezembro_2022.insert(variavel_dia - 1, valor_bilhete)
 
 
-# Tiago Sousa: funçao para guardar a data do dia escolhido, usar essa data para adicionar
-# o valor a bilheteira
+# Funçao para guardar a data do dia escolhido, usar essa data para adicionar
+# Valor da bilheteira
 def guardar_dia_1digito(controlos):
     return controlos[:1]
 
@@ -243,7 +245,6 @@ def funcao_menu():
     model.menu()
 
 
-# Tiago Lança
 def verificar_cliente(lista_clientes_registados, lista_usernames, controlos):
     
     nome = controlos[0]
@@ -291,7 +292,7 @@ def adicionar_dict(username, evento, reserva_dia, tipo_bilhete, lugar):
     cliente['Lugar'] = lugar
     view.lista_reservas_total.append(cliente)
 
-#função para consultar as reservas
+#Função para consultar as reservas
 def consultar_reserva(controlos):
     username_reserva = controlos[0]
     for i in view.lista_reservas_total:
@@ -300,7 +301,7 @@ def consultar_reserva(controlos):
                 print(key, ":", i[key])
             print() #print para separar as varias reservas
 
-#Rodrigo: na lista teste é onde tens os dicionarios com as reservas do utilizador           
+       
 def alterar_eliminar_reserva(controlos):
     lista_reservas_utilizador = []
     username_reserva = controlos[0]
