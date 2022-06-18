@@ -1,3 +1,4 @@
+from email import message_from_binary_file
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
@@ -36,7 +37,8 @@ def tabela_precos():
     print("|       (1 pessoa)       |")
     print("└────────────────────────┘")
 
-#NÃO APAGAR
+sala_para_print = "EVENTO_DIA", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "K11", "K12", "K13", "K14", "J1", "J2", "J3", "J4", "J5", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14", "I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12", "I13", "I14", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "F1", "F2", "F6", "F7", "F8", "F9", "F13", "F14", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14 ", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14", "A1", "A2", "A6", "A7", "A8", "A9", "A13", "A14"
+
 lugares_print = ["| K1 |", "| K2 |", "| K3 |", "| K4 |", "| K5 |", "| K6 |", "| K7 |", "| K8 |", "| K9 |", "| K10 |",
 "| K11 |", "| K12 |", "| K13 |", "| K14 |",
 "| J1 |", "| J2 |", "| J3 |", "| J4 |", "| J5 |", "| J6 |", "| J7 |", "| J8 |", "| J9 |", "| J10 |",
@@ -79,6 +81,16 @@ lugares_print_copy = ["| K1 |", "| K2 |", "| K3 |", "| K4 |", "| K5 |", "| K6 |"
 "| B11 |", "| B12 |", "| B13 |", "| B14 |",
 "| A1 |", "| A2 |", "| A6 |", "| A7 |", "| A8 |", "| A9 |", "| A13 |", "| A14 |"]
 
+dias_brodway = ["3/1/2022", "23/1/2022", "\n", "3/2/2022", "23/2/2022", "\n", "3/3/2022", "23/3/2022", "\n", "3/4/2022",
+                "23/4/2022", "\n",
+                "3/5/2022", "23/5/2022", "\n", "3/6/2022", "23/6/2022", "\n", "3/7/2022", "23/7/2022", "\n", "3/9/2022",
+                "23/9/2022", "\n", "3/10/2022",
+                "23/10/2022", "\n", "3/11/2022", "23/11/2022", "\n", "3/12/2022", "23/12/2022", "\n"]
+dias_musical = ["15/1/2022", "\n", "6/2/2022", "\n", "6/3/2022", "\n", "22/4/2022", "\n", "17/6/2022", "\n", "20/7/2022", "\n", "5/9/2022", "\n",
+                "29/10/2022", "\n", "4/11/2022", "\n", "21/12/2022", "\n"]
+dias_opera = ["4/1/2022", "\n", "22/3/2022", "\n", "11/6/2022", "\n", "5/9/2022", "\n", "9/12/2022" "\n"]
+dias_circo = ["4/1/2022", "\n", "6/6/2022", "\n", "12/2/2022", "\n"]
+dias_teatro = ["22/9/2022"]
 
 def palco_reserva_default(l):
     print(
@@ -111,3 +123,37 @@ def palco_reserva_default(l):
     print("                |                                          PALCO                                       |")
     print("                |                                                                                      |")
     print("                └──────────────────────────────────────────────────────────────────────────────────────┘")
+
+def menu():
+    print("────────────────────────────────────────────────────────────────────────")
+    print(f"| {Fore.MAGENTA}Eventos{Fore.RESET} | {Fore.YELLOW}Bilheteira{Fore.RESET} | {Fore.CYAN}Reservas{Fore.RESET} | {Fore.GREEN}Login{Fore.RESET} | {Fore.GREEN}Registar{Fore.RESET} | {Fore.RED}Eliminar_Evento{Fore.RESET} |")
+    print("────────────────────────────────────────────────────────────────────────")
+
+def cartaz_eventos():
+    print("──────────────────────────────────────────────")
+    print(f"| {Fore.MAGENTA}Brodway{Fore.RESET} | {Fore.MAGENTA}Circo{Fore.RESET} | {Fore.MAGENTA}Musical{Fore.RESET} | {Fore.MAGENTA}Opera{Fore.RESET} | {Fore.MAGENTA}Teatro{Fore.RESET} |")
+    print("──────────────────────────────────────────────")
+
+def bilheteira_menu_opcao():
+    print("────────────────────")
+    print(f"| {Fore.LIGHTYELLOW_EX}Dia{Fore.RESET} | {Fore.LIGHTYELLOW_EX}Mes{Fore.RESET} | {Fore.LIGHTYELLOW_EX}Ano{Fore.RESET} |")
+    print("────────────────────")
+
+def bilheteira_menu_meses():
+    print("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────")
+    print(f"| {Fore.BLACK}janeiro{Fore.RESET} | {Fore.YELLOW}fevereiro{Fore.RESET} | {Fore.BLACK}março{Fore.RESET} | {Fore.YELLOW}abril{Fore.RESET} | {Fore.BLACK}maio{Fore.RESET} | {Fore.YELLOW}junho{Fore.RESET} | {Fore.BLACK}julho{Fore.RESET} | {Fore.YELLOW}agosto{Fore.RESET} | {Fore.BLACK}setembro{Fore.RESET} | {Fore.YELLOW}outobro{Fore.RESET} | {Fore.BLACK}novembro{Fore.RESET} | {Fore.YELLOW}dezembro{Fore.RESET} |")
+    print("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────")
+
+def reservas_menu():
+    print("──────────────────────────────────")
+    print(f"| {Fore.CYAN}Consultar{Fore.RESET} | {Fore.CYAN}Alterar{Fore.RESET} | {Fore.CYAN}Eliminar{Fore.RESET} |")
+    print("──────────────────────────────────")
+
+dias_mes_31 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+dias_mes_30 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+dias_fevereiro =  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+meses = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outobro","novembro","dezembro"]
+
+sessao_iniciada = False
+
+admin_logado = False
