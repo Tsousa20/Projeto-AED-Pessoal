@@ -2,7 +2,6 @@ from tracemalloc import stop
 from turtle import goto
 import controller
 import model
-from models.linkedlist import LinkedList
 from colorama import Fore
 
 # sala default usado para todas as salas dos eventos, copiada.
@@ -174,7 +173,7 @@ def main():
         elif controlos[0] == "Eventos":
             print()
             print("Por favor, escolha um evento!\n")
-            model.cartaz_eventos()()
+            model.cartaz_eventos()
             controlos = input()
             dia = 0
             dia_existe = "NÃO"
@@ -573,6 +572,7 @@ def main():
                                 controlos = int(input("Introduza o número referente à reserva que deseja alterar:\n"))
                                 if 0 < controlos and controlos <= len(reservas_referentes_utilizador):
                                     reserva_selecionada = reservas_referentes_utilizador[controlos - 1]
+                                    tipo_bilhete_novo = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
                                     tipo_bilhete = reservas_referentes_utilizador[controlos - 1].get("Bilhete")
                                     dia = reservas_referentes_utilizador[controlos - 1].get("Dia do evento")
                                     lugar_antigo = reservas_referentes_utilizador[controlos - 1].get("Lugar")
@@ -608,12 +608,12 @@ def main():
 
                                             if lugar_novo == "A6" or lugar_novo == "A7" or lugar_novo == "A8" or lugar_novo == "A9" or lugar_novo == "F6" or lugar_novo == "F7" or lugar_novo == "F8" or lugar_novo == "F9":
                                                 print("O lugar introduzido pertence a um lugar VIP e o seu lugar é Normal, se pretende alterar para um lugar VIP, será lhe retirado 8 euros da sua conta.\n")
-                                                controlos = input("S para alterar, N para continuar\n(S \ N)\n")
-                                                if controlos == "S":
+                                                controlos = input("Sim para alterar, Não para continuar\n")
+                                                if controlos == "Sim":
                                                     variavel_teste = controller.alterar_reservas_normal_vip(dia, lugar_novo, lugar_antigo)
                                                     if variavel_teste == "Reservado":
                                                         valor_bilhete = 8
-                                                        tipo_bilhete = "VIP"
+                                                        tipo_bilhete_novo = "VIP"
                                                         controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
                                                                 bilheteira_abril_2022,
                                                                 bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
@@ -640,12 +640,12 @@ def main():
 
                                             if lugar_novo in sala:
                                                 print("O lugar introduzido pertence a um lugar Normal e o seu lugar é VIP, se pretende alterar para um lugar Normal, será lhe devolvido 8 euros para a sua conta.\n")
-                                                controlos = input("S para alterar, N para continuar.\n(S \ N)\n")
-                                                if controlos == "S":
+                                                controlos = input("Sim para alterar, Não para continuar.\n")
+                                                if controlos == "Sim":
                                                     variavel_teste = controller.alterar_reservas_vip_normal(dia, lugar_novo, lugar_antigo)
                                                     if variavel_teste == "Reservado":
                                                         valor_bilhete = -8
-                                                        tipo_bilhete = "Normal"
+                                                        tipo_bilhete_novo = "Normal"
                                                         controller.adicionar_valor_bilheteira(variavel_mes, variavel_dia, valor_bilhete, bilheteira_janeiro_2022, bilheteira_fevereiro_2022, bilheteira_marco_2022,
                                                                 bilheteira_abril_2022,
                                                                 bilheteira_maio_2022, bilheteira_junho_2022, bilheteira_julho_2022, bilheteira_agosto_2022,
@@ -663,7 +663,7 @@ def main():
                                             input("Pressione ENTER para continuar\n")
                                         
                                     controller.print_palco_evento(dia)
-                                    controller.eliminar_antiga_adicionar_nova_reserva(reserva_selecionada, lugar_novo, tipo_bilhete)
+                                    controller.eliminar_antiga_adicionar_nova_reserva(reserva_selecionada, lugar_novo, tipo_bilhete_novo)
                                     print("Alteração Efetuada com sucesso!\n")
                                     controller.funcao_menu()
 
